@@ -20,8 +20,14 @@ kotlin {
         }
     }
     macosX64()
+    macosArm64()
     linuxX64()
+    linuxArm64()
+    linuxArm32Hfp()
+    linuxMips32()
+    linuxMipsel32()
     mingwX64()
+    mingwX86()
 
     
     sourceSets {
@@ -62,35 +68,93 @@ kotlin {
             dependsOn(unixTest)
             dependsOn(windowsTest)
         }
+
         val nativeMain by creating {
             dependsOn(commonMain)
         }
         val nativeTest by creating {
             dependsOn(commonTest)
         }
-        val macosX64Main by getting {
+
+        val macosNativeMain by creating {
             dependsOn(nativeMain)
             dependsOn(macosMain)
         }
-        val macosX64Test by getting {
+        val macosNativeTest by creating {
             dependsOn(nativeTest)
             dependsOn(macosTest)
         }
-        val linuxX64Main by getting {
+        val macosX64Main by getting {
+            dependsOn(macosNativeMain)
+        }
+        val macosX64Test by getting {
+            dependsOn(macosNativeTest)
+        }
+        val macosArm64Main by getting {
+            dependsOn(macosNativeMain)
+        }
+        val macosArm64Test by getting {
+            dependsOn(macosNativeTest)
+        }
+
+        val linuxNativeMain by creating {
             dependsOn(nativeMain)
             dependsOn(unixMain)
         }
-        val linuxX64Test by getting {
+        val linuxNativeTest by creating {
             dependsOn(nativeTest)
             dependsOn(unixTest)
         }
-        val mingwX64Main by getting {
+        val linuxX64Main by getting {
+            dependsOn(linuxNativeMain)
+        }
+        val linuxX64Test by getting {
+            dependsOn(linuxNativeTest)
+        }
+        val linuxArm64Main by getting {
+            dependsOn(linuxNativeMain)
+        }
+        val linuxArm64Test by getting {
+            dependsOn(linuxNativeTest)
+        }
+        val linuxArm32HfpMain by getting {
+            dependsOn(linuxNativeMain)
+        }
+        val linuxArm32HfpTest by getting {
+            dependsOn(linuxNativeTest)
+        }
+        val linuxMips32Main by getting {
+            dependsOn(linuxNativeMain)
+        }
+        val linuxMips32Test by getting {
+            dependsOn(linuxNativeTest)
+        }
+        val linuxMipsel32Main by getting {
+            dependsOn(linuxNativeMain)
+        }
+        val linuxMipsel32Test by getting {
+            dependsOn(linuxNativeTest)
+        }
+
+        val mingwNativeMain by creating {
             dependsOn(nativeMain)
             dependsOn(windowsMain)
         }
-        val mingwX64Test by getting {
+        val mingwNativeTest by creating {
             dependsOn(nativeTest)
             dependsOn(windowsTest)
+        }
+        val mingwX64Main by getting {
+            dependsOn(mingwNativeMain)
+        }
+        val mingwX64Test by getting {
+            dependsOn(mingwNativeTest)
+        }
+        val mingwX86Main by getting {
+            dependsOn(mingwNativeMain)
+        }
+        val mingwX86Test by getting {
+            dependsOn(mingwNativeTest)
         }
     }
 }
