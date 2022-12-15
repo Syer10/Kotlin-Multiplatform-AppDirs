@@ -22,7 +22,3 @@ internal actual fun home(): String {
 internal actual fun fileSeparator() : String = "/"
 
 internal actual fun pathSeparator() : String = ":"
-
-internal actual fun getFromEnv(name: String): String? {
-    return getenv(name)?.toKString()
-}

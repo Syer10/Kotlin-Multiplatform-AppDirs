@@ -4,29 +4,29 @@ import ca.gosyer.appdirs.impl.UnixAppDirs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-abstract class UnixTest : AppDirsTest(::UnixAppDirs) {
+abstract class UnixTest : AppDirsTest({ UnixAppDirs(UnixTestEnvResolver(emptyMap())) }) {
     @Test
     fun testRealPathLinuxUserDataDir() {
         assertEquals(
-            home + "/.local/share",
+            "$home/.local/share",
             appDirs.getUserDataDir(null, null, null)
         )
     }
 
     @Test
     fun testRealPathLinuxUserConfigDir() {
-        assertEquals(home + "/.config", appDirs.getUserConfigDir(null, null, null))
+        assertEquals("$home/.config", appDirs.getUserConfigDir(null, null, null))
     }
 
     @Test
     fun testRealPathLinuxUserCacheDir() {
-        assertEquals(home + "/.cache", appDirs.getUserCacheDir(null, null, null))
+        assertEquals("$home/.cache", appDirs.getUserCacheDir(null, null, null))
     }
 
     @Test
     fun testRealPathLinuxUserLogDir() {
         assertEquals(
-            home + "/.cache/logs",
+            "$home/.cache/logs",
             appDirs.getUserLogDir(null, null, null)
         )
     }

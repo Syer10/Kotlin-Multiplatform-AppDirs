@@ -2,20 +2,14 @@ package ca.gosyer.appdirs.impl
 
 import ca.gosyer.appdirs.AppDirs
 
-internal expect fun getFromEnv(name: String): String?
-
-internal fun getFromEnv(name: String, defaultValue: () -> String): String {
-    return getFromEnv(name) ?: defaultValue()
-}
-
-class UnixAppDirs : AppDirs {
+class UnixAppDirs(private val envResolver: UnixEnvResolver) : AppDirs {
     override fun getUserDataDir(
         appName: String?,
         appVersion: String?,
         appAuthor: String?,
         roaming: Boolean
     ): String {
-        val dir = getFromEnv(XDG_DATA_HOME) { buildPath(home(), "/.local/share") }
+        val dir = envResolver.getOrDefault(XDG_DATA_HOME) { buildPath(home(), "/.local/share") }
         return buildPath(dir, appName, appVersion)
     }
 
@@ -25,7 +19,7 @@ class UnixAppDirs : AppDirs {
         appAuthor: String?,
         roaming: Boolean
     ): String {
-        val dir = getFromEnv(XDG_CONFIG_HOME) { buildPath(home(), "/.config") }
+        val dir = envResolver.getOrDefault(XDG_CONFIG_HOME) { buildPath(home(), "/.config") }
         return buildPath(dir, appName, appVersion)
     }
 
@@ -34,7 +28,7 @@ class UnixAppDirs : AppDirs {
         appVersion: String?,
         appAuthor: String?
     ): String {
-        val dir = getFromEnv(XDG_CACHE_HOME) { buildPath(home(), "/.cache") }
+        val dir = envResolver.getOrDefault(XDG_CACHE_HOME) { buildPath(home(), "/.cache") }
         return buildPath(dir, appName, appVersion)
     }
 
@@ -44,7 +38,7 @@ class UnixAppDirs : AppDirs {
         appAuthor: String?,
         multiPath: Boolean
     ): String {
-        val xdgDirs = getFromEnv(XDG_DATA_DIRS)
+        val xdgDirs = envResolver[XDG_DATA_DIRS]
         if (xdgDirs == null) {
             val primary = buildPath("/usr/local/share", appName, appVersion)
             val secondary = buildPath("/usr/share", appName, appVersion)
@@ -64,7 +58,7 @@ class UnixAppDirs : AppDirs {
         appAuthor: String?,
         multiPath: Boolean
     ): String {
-        val xdgDirs = getFromEnv(XDG_CONFIG_DIRS)
+        val xdgDirs = envResolver[XDG_CONFIG_DIRS]
             ?: return buildPath("/etc/xdg", appName, appVersion)
         val xdgDirArr = splitPaths(xdgDirs)
         return if (multiPath) {
@@ -89,7 +83,7 @@ class UnixAppDirs : AppDirs {
         appVersion: String?,
         appAuthor: String?
     ): String {
-        val dir = getFromEnv(XDG_CACHE_HOME) { buildPath(home(), "/.cache") }
+        val dir = envResolver.getOrDefault(XDG_CACHE_HOME) { buildPath(home(), "/.cache") }
         return buildPath(dir, appName, "/logs", appVersion)
     }
 

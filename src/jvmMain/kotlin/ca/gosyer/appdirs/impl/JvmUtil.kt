@@ -6,8 +6,6 @@ internal actual fun fileSeparator() = System.getProperty("file.separator")
 
 internal actual fun pathSeparator() = System.getProperty("path.separator")
 
-internal actual fun getFromEnv(name: String): String? {
-    return System.getenv(name)
-}
+
 
 

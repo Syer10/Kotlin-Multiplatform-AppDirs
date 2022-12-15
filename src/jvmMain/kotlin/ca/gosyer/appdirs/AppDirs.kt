@@ -3,6 +3,7 @@ package ca.gosyer.appdirs
 import ca.gosyer.appdirs.impl.MacOSXAppDirs
 import ca.gosyer.appdirs.impl.ShellFolderResolver
 import ca.gosyer.appdirs.impl.UnixAppDirs
+import ca.gosyer.appdirs.impl.UnixJvmEnvResolver
 import ca.gosyer.appdirs.impl.WindowsAppDirs
 
 fun AppDirs(): AppDirs {
@@ -13,6 +14,6 @@ fun AppDirs(): AppDirs {
         WindowsAppDirs(ShellFolderResolver())
     } else {
         // Assume other *nix.
-        UnixAppDirs()
+        UnixAppDirs(UnixJvmEnvResolver())
     }
 }
