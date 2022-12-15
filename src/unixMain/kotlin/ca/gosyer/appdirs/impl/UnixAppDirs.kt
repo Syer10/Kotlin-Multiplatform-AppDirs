@@ -46,11 +46,11 @@ class UnixAppDirs : AppDirs {
     ): String {
         val xdgDirs = getFromEnv(XDG_DATA_DIRS)
         if (xdgDirs == null) {
-            val primary: String = buildPath("/usr/local/share", appName, appVersion)
-            val secondary: String = buildPath("/usr/share", appName, appVersion)
-            return if (multiPath) joinPaths(primary, secondary) else primary
+            val primary = buildPath("/usr/local/share", appName, appVersion)
+            val secondary = buildPath("/usr/share", appName, appVersion)
+            return if (multiPath) joinPaths(listOf(primary, secondary)) else primary
         }
-        val xdgDirArr: Array<String> = splitPaths(xdgDirs)
+        val xdgDirArr = splitPaths(xdgDirs)
         return if (multiPath) {
             buildMultiPaths(appName, appVersion, xdgDirArr)
         } else {
@@ -77,12 +77,10 @@ class UnixAppDirs : AppDirs {
     private fun buildMultiPaths(
         appName: String?,
         appVersion: String?,
-        xdgDirArr: Array<String>
+        xdgDirArr: List<String>
     ): String {
         return joinPaths(
-            *xdgDirArr
-                .map { buildPath(it, appName, appVersion) }
-                .toTypedArray()
+            xdgDirArr.map { buildPath(it, appName, appVersion) }
         )
     }
 

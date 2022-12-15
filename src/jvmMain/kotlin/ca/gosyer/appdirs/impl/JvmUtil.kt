@@ -1,8 +1,6 @@
 package ca.gosyer.appdirs.impl
 
-internal actual fun home(): String {
-    return System.getProperty("user.home")
-}
+internal actual fun home() = System.getProperty("user.home")
 
 internal actual fun fileSeparator() = System.getProperty("file.separator")
 

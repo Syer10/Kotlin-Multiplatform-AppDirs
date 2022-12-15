@@ -14,7 +14,7 @@ internal actual fun home(): String {
             return home.toKString()
         } else {
             val uid = getuid()
-            return getpwuid(uid)?.pointed?.pw_dir!!.toKString()
+            return getpwuid(uid)!!.pointed.pw_dir!!.toKString()
         }
     }
 }
