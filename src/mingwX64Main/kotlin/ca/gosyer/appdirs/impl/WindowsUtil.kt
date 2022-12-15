@@ -1,7 +1,6 @@
 package ca.gosyer.appdirs.impl
 
 import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.pointed
 import kotlinx.cinterop.toKString
 import platform.posix.getenv
 
