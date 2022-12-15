@@ -22,7 +22,7 @@ import platform.windows.SHGetFolderPathW
 import platform.windows.SHGetKnownFolderPath
 
 internal class ShellFolderResolver : WindowsFolderResolver {
-    override fun resolveFolder(folderId: FolderId): String {
+    override operator fun get(folderId: FolderId): String {
         return try {
             memScoped {
                 val result = alloc<PWSTRVar>()

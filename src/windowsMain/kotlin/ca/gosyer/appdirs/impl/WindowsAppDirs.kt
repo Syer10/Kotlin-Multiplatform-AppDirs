@@ -73,9 +73,9 @@ class WindowsAppDirs(private val folderResolver: WindowsFolderResolver) : AppDir
     }
 
     private val appData: String
-        get() = folderResolver.resolveFolder(FolderId.APPDATA)
+        get() = folderResolver[FolderId.APPDATA]
     private val localAppData: String
-        get() = folderResolver.resolveFolder(FolderId.LOCAL_APPDATA)
+        get() = folderResolver[FolderId.LOCAL_APPDATA]
     private val commonAppData: String
-        get() = folderResolver.resolveFolder(FolderId.COMMON_APPDATA)
+        get() = folderResolver[FolderId.COMMON_APPDATA]
 }

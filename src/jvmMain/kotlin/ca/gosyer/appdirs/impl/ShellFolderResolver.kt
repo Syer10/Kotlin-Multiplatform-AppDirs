@@ -9,7 +9,7 @@ import com.sun.jna.platform.win32.ShlObj
 import com.sun.jna.platform.win32.Win32Exception
 
 internal class ShellFolderResolver : WindowsFolderResolver {
-    override fun resolveFolder(folderId: FolderId): String {
+    override operator fun get(folderId: FolderId): String {
         return try {
             Shell32Util.getKnownFolderPath(convertFolderIdToGuid(folderId))
         } catch (e: Win32Exception) {
