@@ -1,2 +1,2 @@
-rootProject.name = "Kotlin_Appdirs"
+rootProject.name = "Kotlin-Multiplatform-Appdirs"
 
