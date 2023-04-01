@@ -1,6 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.7.20"
-    id("com.louiscad.complete-kotlin") version "1.1.0"
+    kotlin("multiplatform") version "1.8.10"
 }
 
 group = "ca.gosyer"
@@ -23,11 +22,7 @@ kotlin {
     macosArm64()
     linuxX64()
     linuxArm64()
-    linuxArm32Hfp()
-    linuxMips32()
-    linuxMipsel32()
     mingwX64()
-    mingwX86()
 
     
     sourceSets {
@@ -117,24 +112,6 @@ kotlin {
         val linuxArm64Test by getting {
             dependsOn(linuxNativeTest)
         }
-        val linuxArm32HfpMain by getting {
-            dependsOn(linuxNativeMain)
-        }
-        val linuxArm32HfpTest by getting {
-            dependsOn(linuxNativeTest)
-        }
-        val linuxMips32Main by getting {
-            dependsOn(linuxNativeMain)
-        }
-        val linuxMips32Test by getting {
-            dependsOn(linuxNativeTest)
-        }
-        val linuxMipsel32Main by getting {
-            dependsOn(linuxNativeMain)
-        }
-        val linuxMipsel32Test by getting {
-            dependsOn(linuxNativeTest)
-        }
 
         val mingwNativeMain by creating {
             dependsOn(nativeMain)
@@ -148,12 +125,6 @@ kotlin {
             dependsOn(mingwNativeMain)
         }
         val mingwX64Test by getting {
-            dependsOn(mingwNativeTest)
-        }
-        val mingwX86Main by getting {
-            dependsOn(mingwNativeMain)
-        }
-        val mingwX86Test by getting {
             dependsOn(mingwNativeTest)
         }
     }
