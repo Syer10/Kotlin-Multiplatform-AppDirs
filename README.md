@@ -24,12 +24,18 @@ __AppDirs__ is loosely based on [a python module](https://github.com/ActiveState
 Please use the issue tracker for bug reports or suggestions.
 
 ## Quickstart
-
-### With a dependency management tool ([Maven](https://maven.apache.org/), [Gradle](https://gradle.org/), etc.)
-
-1. Choose the latest version on the [MvnRepository](https://mvnrepository.com/artifact/ca.gosyer/Kotlin-Multiplatform-AppDirs).
-2. From the tabs of dependency management tools, select the one you are using.
-3. Copy the snippet and add it to the dependency list of your project file (`build.gradle`, `build.gradle.kts`, etc.).
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/ca.gosyer/kotlin-multiplatform-appdirs/badge.svg)](https://maven-badges.herokuapp.com/maven-central/ca.gosyer/kotlin-multiplatform-appdirs)
+```kotlin
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("ca.gosyer:kotlin-multiplatform-appdirs:1.0.0")
+            }
+        }
+    }
+}
+```
 
 ## Supported directories
 
