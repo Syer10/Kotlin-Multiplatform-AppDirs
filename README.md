@@ -1,4 +1,4 @@
-AppDirs
+Kotlin Multiplatform AppDirs
 =======
 
 ## Overview
