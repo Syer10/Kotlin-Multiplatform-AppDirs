@@ -63,9 +63,9 @@ fun main() {
     println("User cache dir: " + appDirs.getUserCacheDir())
     println("User log dir: " + appDirs.getUserLogDir())
     println("Site data dir: " + appDirs.getSiteDataDir())
-    println("Site data dir (multi path): " + appDirs.getSiteDataDir(roaming = true))
+    println("Site data dir (multi path): " + appDirs.getSiteDataDir(multiPath = true))
     println("Site config dir: " + appDirs.getSiteConfigDir())
-    println("Site config dir (multi path): " + appDirs.getSiteConfigDir(roaming = true))
+    println("Site config dir (multi path): " + appDirs.getSiteConfigDir(multiPath = true))
     println("Shared dir: " + appDirs.getSharedDir())
 }
 ```
