@@ -85,7 +85,6 @@ Site config dir: /Library/Preferences/syer myapp/1.2.3
 Site config dir (multi path): /Library/Preferences/syer myapp/1.2.3
 Shared dir: /Users/Shared/Library/Application Support/syer myapp/1.2.3
 ```
-- _appAuthor_ parameter is not used on Mac OS X.
 - _roaming_ and _multiPath_ parameters have no effect on Mac OS X.
 
 ### Output on Windows 7 (username = ave)
