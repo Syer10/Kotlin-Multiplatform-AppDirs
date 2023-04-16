@@ -101,7 +101,7 @@ Site config dir: C:\ProgramData\syer\myapp\1.2.3
 Site config dir (multi path): C:\ProgramData\syer\myapp\1.2.3
 Shared dir: C:\ProgramData\syer\myapp\1.2.3
 ```
-- Internally calls [SHGetFolderPath](http://msdn.microsoft.com/en-us/library/bb762181%28VS.85%29.aspx) via [Java Native Access (JNA)](https://github.com/twall/jna) or Kotlin Native.
+- Internally calls [SHGetFolderPath](http://msdn.microsoft.com/en-us/library/bb762181%28VS.85%29.aspx), either by Kotlin Native or via [Java Native Access (JNA)](https://github.com/twall/jna) on the JVM.
 - Returns CSIDL_LOCAL_APPDATA or CSIDL_APPDATA for user directories.
 - Returns CSIDL_COMMON_APPDATA for site directories.
 - _multiPath_ parameter has no effect on Windows.
