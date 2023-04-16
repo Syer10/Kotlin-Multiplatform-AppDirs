@@ -2,97 +2,80 @@ package ca.gosyer.appdirs.impl
 
 import ca.gosyer.appdirs.AppDirs
 
-class UnixAppDirs(private val envResolver: UnixEnvResolver) : AppDirs {
+class UnixAppDirs(
+    private val appName: String?,
+    private val appAuthor: String? = null,
+    vararg extra: String,
+    private val envResolver: UnixEnvResolver
+) : AppDirs {
+    private val extras = extra
+
     override fun getUserDataDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?,
         roaming: Boolean
     ): String {
         val dir = envResolver.getOrDefault(XDG_DATA_HOME) { buildPath(home(), "/.local/share") }
-        return buildPath(dir, appName, appVersion)
+        return buildPath(dir, appName, *extras)
     }
 
     override fun getUserConfigDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?,
         roaming: Boolean
     ): String {
         val dir = envResolver.getOrDefault(XDG_CONFIG_HOME) { buildPath(home(), "/.config") }
-        return buildPath(dir, appName, appVersion)
+        return buildPath(dir, appName, *extras)
     }
 
-    override fun getUserCacheDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?
-    ): String {
+    override fun getUserCacheDir(): String {
         val dir = envResolver.getOrDefault(XDG_CACHE_HOME) { buildPath(home(), "/.cache") }
-        return buildPath(dir, appName, appVersion)
+        return buildPath(dir, appName, *extras)
     }
 
     override fun getSiteDataDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?,
         multiPath: Boolean
     ): String {
         val xdgDirs = envResolver[XDG_DATA_DIRS]
         if (xdgDirs == null) {
-            val primary = buildPath("/usr/local/share", appName, appVersion)
-            val secondary = buildPath("/usr/share", appName, appVersion)
+            val primary = buildPath("/usr/local/share", appName, *extras)
+            val secondary = buildPath("/usr/share", appName, *extras)
             return if (multiPath) joinPaths(listOf(primary, secondary)) else primary
         }
         val xdgDirArr = splitPaths(xdgDirs)
         return if (multiPath) {
-            buildMultiPaths(appName, appVersion, xdgDirArr)
+            buildMultiPaths(appName, extras, xdgDirArr)
         } else {
-            buildPath(xdgDirArr[0], appName, appVersion)
+            buildPath(xdgDirArr[0], appName, *extras)
         }
     }
 
     override fun getSiteConfigDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?,
         multiPath: Boolean
     ): String {
         val xdgDirs = envResolver[XDG_CONFIG_DIRS]
-            ?: return buildPath("/etc/xdg", appName, appVersion)
+            ?: return buildPath("/etc/xdg", appName, *extras)
         val xdgDirArr = splitPaths(xdgDirs)
         return if (multiPath) {
-            buildMultiPaths(appName, appVersion, xdgDirArr)
+            buildMultiPaths(appName, extras, xdgDirArr)
         } else {
-            buildPath(xdgDirArr[0], appName, appVersion)
+            buildPath(xdgDirArr[0], appName, *extras)
         }
     }
 
     private fun buildMultiPaths(
         appName: String?,
-        appVersion: String?,
+        extra: Array<out String>,
         xdgDirArr: List<String>
     ): String {
         return joinPaths(
-            xdgDirArr.map { buildPath(it, appName, appVersion) }
+            xdgDirArr.map { buildPath(it, appName, *extra) }
         )
     }
 
-    override fun getUserLogDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?
-    ): String {
+    override fun getUserLogDir(): String {
         val dir = envResolver.getOrDefault(XDG_CACHE_HOME) { buildPath(home(), "/.cache") }
-        return buildPath(dir, appName, "/logs", appVersion)
+        return buildPath(dir, appName, "/logs", *extras)
     }
 
-    override fun getSharedDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?
-    ): String {
-        return buildPath("/srv", appName, appVersion)
+    override fun getSharedDir(): String {
+        return buildPath("/srv", appName, *extras)
     }
 
     companion object {

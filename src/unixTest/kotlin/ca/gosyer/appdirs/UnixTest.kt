@@ -4,81 +4,89 @@ import ca.gosyer.appdirs.impl.UnixAppDirs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-abstract class UnixTest : AppDirsTest({ UnixAppDirs(UnixTestEnvResolver(emptyMap())) }) {
+abstract class UnixTest : AppDirsTest() {
+    fun AppDirs(
+        appName: String?,
+        appAuthor: String?,
+        vararg extra: String,
+    ): AppDirs {
+        return UnixAppDirs(appName, appAuthor, *extra, envResolver = UnixTestEnvResolver(emptyMap()))
+    }
+
     @Test
     fun testRealPathLinuxUserDataDir() {
         assertEquals(
             "$home/.local/share",
-            appDirs.getUserDataDir(null, null, null)
+            AppDirs(null).getUserDataDir()
         )
     }
 
     @Test
     fun testRealPathLinuxUserConfigDir() {
-        assertEquals("$home/.config", appDirs.getUserConfigDir(null, null, null))
+        assertEquals("$home/.config", AppDirs(null).getUserConfigDir())
     }
 
     @Test
     fun testRealPathLinuxUserCacheDir() {
-        assertEquals("$home/.cache", appDirs.getUserCacheDir(null, null, null))
+        assertEquals("$home/.cache", AppDirs(null).getUserCacheDir())
     }
 
     @Test
     fun testRealPathLinuxUserLogDir() {
         assertEquals(
             "$home/.cache/logs",
-            appDirs.getUserLogDir(null, null, null)
+            AppDirs(null).getUserLogDir()
         )
     }
 
     @Test
     fun testRealPathLinuxSiteDataDir() {
-        assertEquals("/usr/local/share", appDirs.getSiteDataDir(null, null, null))
+        assertEquals("/usr/local/share", AppDirs(null).getSiteDataDir())
     }
 
     @Test
     fun testRealPathLinuxSiteConfigDir() {
-        assertEquals("/etc/xdg", appDirs.getSiteConfigDir(null, null, null))
+        assertEquals("/etc/xdg", AppDirs(null).getSiteConfigDir())
     }
 
     @Test
     fun testRealPathLinuxSharedDir() {
-        assertEquals("/srv", appDirs.getSharedDir(null, null, null))
+        assertEquals("/srv", AppDirs(null).getSharedDir())
     }
 
     @Test
     fun testGetUserDataDir() {
         assertEquals(
             "$home/.local/share",
-            appDirs.getUserDataDir(null, null, null)
+            AppDirs(null).getUserDataDir()
         )
         assertEquals(
             "$home/.local/share",
-            appDirs.getUserDataDir(null, null, null, true)
+            AppDirs(null).getUserDataDir(true)
         )
         assertEquals(
             "$home/.local/share/myapp",
-            appDirs.getUserDataDir("myapp", null, null)
+            AppDirs("myapp").getUserDataDir()
         )
         assertEquals(
             "$home/.local/share/myapp",
-            appDirs.getUserDataDir("myapp", null, null, true)
+            AppDirs("myapp").getUserDataDir(true)
         )
         assertEquals(
             "$home/.local/share/myapp/1.2.3",
-            appDirs.getUserDataDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getUserDataDir()
         )
         assertEquals(
             "$home/.local/share/myapp/1.2.3",
-            appDirs.getUserDataDir("myapp", "1.2.3", null, true)
+            AppDirs("myapp", null, "1.2.3").getUserDataDir(true)
         )
         assertEquals(
             "$home/.local/share/myapp/1.2.3",
-            appDirs.getUserDataDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserDataDir()
         )
         assertEquals(
             "$home/.local/share/myapp/1.2.3",
-            appDirs.getUserDataDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getUserDataDir(true)
         )
     }
 
@@ -86,35 +94,35 @@ abstract class UnixTest : AppDirsTest({ UnixAppDirs(UnixTestEnvResolver(emptyMap
     fun testGetUserConfigDir() {
         assertEquals(
             "$home/.config",
-            appDirs.getUserConfigDir(null, null, null)
+            AppDirs(null).getUserConfigDir()
         )
         assertEquals(
             "$home/.config",
-            appDirs.getUserConfigDir(null, null, null, true)
+            AppDirs(null).getUserConfigDir(true)
         )
         assertEquals(
             "$home/.config/myapp",
-            appDirs.getUserConfigDir("myapp", null, null)
+            AppDirs("myapp").getUserConfigDir()
         )
         assertEquals(
             "$home/.config/myapp",
-            appDirs.getUserConfigDir("myapp", null, null, true)
+            AppDirs("myapp").getUserConfigDir(true)
         )
         assertEquals(
             "$home/.config/myapp/1.2.3",
-            appDirs.getUserConfigDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getUserConfigDir()
         )
         assertEquals(
             "$home/.config/myapp/1.2.3",
-            appDirs.getUserConfigDir("myapp", "1.2.3", null, true)
+            AppDirs("myapp", null, "1.2.3").getUserConfigDir(true)
         )
         assertEquals(
             "$home/.config/myapp/1.2.3",
-            appDirs.getUserConfigDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserConfigDir()
         )
         assertEquals(
             "$home/.config/myapp/1.2.3",
-            appDirs.getUserConfigDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getUserConfigDir(true)
         )
     }
 
@@ -122,19 +130,19 @@ abstract class UnixTest : AppDirsTest({ UnixAppDirs(UnixTestEnvResolver(emptyMap
     fun testGetUserCacheDir() {
         assertEquals(
             "$home/.cache",
-            appDirs.getUserCacheDir(null, null, null)
+            AppDirs(null).getUserCacheDir()
         )
         assertEquals(
             "$home/.cache/myapp",
-            appDirs.getUserCacheDir("myapp", null, null)
+            AppDirs("myapp").getUserCacheDir()
         )
         assertEquals(
             "$home/.cache/myapp/1.2.3",
-            appDirs.getUserCacheDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getUserCacheDir()
         )
         assertEquals(
             "$home/.cache/myapp/1.2.3",
-            appDirs.getUserCacheDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserCacheDir()
         )
     }
 
@@ -142,89 +150,94 @@ abstract class UnixTest : AppDirsTest({ UnixAppDirs(UnixTestEnvResolver(emptyMap
     fun testGetUserLogDir() {
         assertEquals(
             "$home/.cache/logs",
-            appDirs.getUserLogDir(null, null, null)
+            AppDirs(null).getUserLogDir()
         )
         assertEquals(
             "$home/.cache/myapp/logs",
-            appDirs.getUserLogDir("myapp", null, null)
+            AppDirs("myapp").getUserLogDir()
         )
         assertEquals(
             "$home/.cache/myapp/logs/1.2.3",
-            appDirs.getUserLogDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getUserLogDir()
         )
         assertEquals(
             "$home/.cache/myapp/logs/1.2.3",
-            appDirs.getUserLogDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserLogDir()
         )
     }
 
     @Test
     fun testSiteDataDir() {
-        assertEquals("/usr/local/share", appDirs.getSiteDataDir(null, null, null))
+        assertEquals("/usr/local/share", AppDirs(null).getSiteDataDir())
         assertEquals(
             "/usr/local/share:/usr/share",
-            appDirs.getSiteDataDir(null, null, null, true)
+            AppDirs(null).getSiteDataDir(true)
         )
         assertEquals(
             "/usr/local/share/myapp",
-            appDirs.getSiteDataDir("myapp", null, null)
+            AppDirs("myapp").getSiteDataDir()
         )
         assertEquals(
             "/usr/local/share/myapp:/usr/share/myapp",
-            appDirs.getSiteDataDir("myapp", null, null, true)
+            AppDirs("myapp").getSiteDataDir(true)
         )
         assertEquals(
             "/usr/local/share/myapp/1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getSiteDataDir()
         )
         assertEquals(
             "/usr/local/share/myapp/1.2.3:/usr/share/myapp/1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", null, true)
+            AppDirs("myapp", null, "1.2.3").getSiteDataDir(true)
         )
         assertEquals(
             "/usr/local/share/myapp/1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getSiteDataDir()
         )
         assertEquals(
             "/usr/local/share/myapp/1.2.3:/usr/share/myapp/1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getSiteDataDir(true)
         )
     }
 
     @Test
     fun testSiteConfigDir() {
-        assertEquals("/etc/xdg", appDirs.getSiteConfigDir(null, null, null))
-        assertEquals("/etc/xdg", appDirs.getSiteConfigDir(null, null, null, true))
+        assertEquals("/etc/xdg", AppDirs(null).getSiteConfigDir())
+        assertEquals("/etc/xdg", AppDirs(null).getSiteConfigDir(true))
         assertEquals(
             "/etc/xdg/myapp",
-            appDirs.getSiteConfigDir("myapp", null, null)
+            AppDirs("myapp").getSiteConfigDir()
         )
         assertEquals(
             "/etc/xdg/myapp",
-            appDirs.getSiteConfigDir("myapp", null, null, true)
+            AppDirs("myapp").getSiteConfigDir(true)
         )
         assertEquals(
             "/etc/xdg/myapp/1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getSiteConfigDir()
         )
         assertEquals(
             "/etc/xdg/myapp/1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", null, true)
+            AppDirs("myapp", null, "1.2.3").getSiteConfigDir(true)
         )
         assertEquals(
             "/etc/xdg/myapp/1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getSiteConfigDir()
         )
         assertEquals(
             "/etc/xdg/myapp/1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getSiteConfigDir(true)
         )
     }
 
     @Test
     fun testEnvironmentVariables() {
-        val appDirs = UnixAppDirs(
-            UnixTestEnvResolver(
+        fun AppDirs(
+            appName: String?,
+            appAuthor: String?,
+            vararg extra: String,
+        ) = UnixAppDirs(
+            appName, appAuthor, *extra,
+            envResolver = UnixTestEnvResolver(
                 mapOf(
                     UnixAppDirs.XDG_DATA_HOME to "/data_home",
                     UnixAppDirs.XDG_CONFIG_HOME to "/config_home",
@@ -236,49 +249,49 @@ abstract class UnixTest : AppDirsTest({ UnixAppDirs(UnixTestEnvResolver(emptyMap
         )
         assertEquals(
             "/data_home/myapp/1.2.3",
-            appDirs.getUserDataDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getUserDataDir(true)
         )
         assertEquals(
             "/config_home/myapp/1.2.3",
-            appDirs.getUserConfigDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getUserConfigDir(true)
         )
         assertEquals(
             "/cache_home/myapp/1.2.3",
-            appDirs.getUserCacheDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserCacheDir()
         )
         assertEquals(
             "/cache_home/myapp/logs/1.2.3",
-            appDirs.getUserLogDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserLogDir()
         )
         assertEquals(
             "/data_dir/myapp/1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getSiteDataDir()
         )
         assertEquals(
             "/data_dir/myapp/1.2.3:/opt/data_dir/myapp/1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", null, true)
+            AppDirs("myapp", null, "1.2.3").getSiteDataDir(true)
         )
         assertEquals(
             "/config_dir/myapp/1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getSiteConfigDir()
         )
         assertEquals(
             "/config_dir/myapp/1.2.3:/opt/config_dir/myapp/1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getSiteConfigDir(true)
         )
     }
 
     @Test
     fun testgetSharedDir() {
-        assertEquals("/srv", appDirs.getSharedDir(null, null, null))
-        assertEquals("/srv/myapp", appDirs.getSharedDir("myapp", null, null))
+        assertEquals("/srv", AppDirs(null).getSharedDir())
+        assertEquals("/srv/myapp", AppDirs("myapp").getSharedDir())
         assertEquals(
             "/srv/myapp/1.2.3",
-            appDirs.getSharedDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getSharedDir()
         )
         assertEquals(
             "/srv/myapp/1.2.3",
-            appDirs.getSharedDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getSharedDir()
         )
     }
 }

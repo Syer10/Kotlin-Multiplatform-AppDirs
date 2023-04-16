@@ -5,13 +5,13 @@ import ca.gosyer.appdirs.impl.WindowsFolderResolver
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) : AppDirsTest({ WindowsAppDirs(windowsFolderResolver()) }) {
+abstract class WindowsTest : AppDirsTest() {
 
     @Test
     fun testRealPathWinUserDataDir() {
         assertEquals(
             "$home\\AppData\\Local",
-            appDirs.getUserDataDir(null, null, null)
+            AppDirs(null).getUserDataDir()
         )
     }
 
@@ -19,7 +19,7 @@ abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) :
     fun testRealPathWinUserConfigDir() {
         assertEquals(
             "$home\\AppData\\Local",
-            appDirs.getUserConfigDir(null, null, null)
+            AppDirs(null).getUserConfigDir()
         )
     }
 
@@ -27,7 +27,7 @@ abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) :
     fun testRealPathWinUserCacheDir() {
         assertEquals(
             "$home\\AppData\\Local\\Cache",
-            appDirs.getUserCacheDir(null, null, null)
+            AppDirs(null).getUserCacheDir()
         )
     }
 
@@ -35,58 +35,58 @@ abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) :
     fun testRealPathWinUserLogDir() {
         assertEquals(
             "$home\\AppData\\Local\\Logs",
-            appDirs.getUserLogDir(null, null, null)
+            AppDirs(null).getUserLogDir()
         )
     }
 
     @Test
     fun testRealPathWinSiteDataDir() {
-        assertEquals("C:\\ProgramData", appDirs.getSiteDataDir(null, null, null))
+        assertEquals("C:\\ProgramData", AppDirs(null).getSiteDataDir())
     }
 
     @Test
     fun testRealPathWinSiteConfigDir() {
-        assertEquals("C:\\ProgramData", appDirs.getSiteConfigDir(null, null, null))
+        assertEquals("C:\\ProgramData", AppDirs(null).getSiteConfigDir())
     }
 
     @Test
     fun testRealPathWinSharedDir() {
-        assertEquals("C:\\ProgramData", appDirs.getSharedDir(null, null, null))
+        assertEquals("C:\\ProgramData", AppDirs(null).getSharedDir())
     }
 
     @Test
     open fun testGetUserDataDir() {
         assertEquals(
             "$home\\AppData\\Local",
-            appDirs.getUserDataDir(null, null, null)
+            AppDirs(null).getUserDataDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming",
-            appDirs.getUserDataDir(null, null, null, true)
+            AppDirs(null).getUserDataDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp",
-            appDirs.getUserDataDir("myapp", null, null)
+            AppDirs("myapp").getUserDataDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\myapp",
-            appDirs.getUserDataDir("myapp", null, null, true)
+            AppDirs("myapp").getUserDataDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\1.2.3",
-            appDirs.getUserDataDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getUserDataDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\myapp\\1.2.3",
-            appDirs.getUserDataDir("myapp", "1.2.3", null, true)
+            AppDirs("myapp", null, "1.2.3").getUserDataDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\syer\\myapp\\1.2.3",
-            appDirs.getUserDataDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserDataDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\syer\\myapp\\1.2.3",
-            appDirs.getUserDataDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getUserDataDir(true)
         )
     }
 
@@ -94,35 +94,35 @@ abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) :
     open fun testGetUserConfigDir() {
         assertEquals(
             "$home\\AppData\\Local",
-            appDirs.getUserConfigDir(null, null, null)
+            AppDirs(null).getUserConfigDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming",
-            appDirs.getUserConfigDir(null, null, null, true)
+            AppDirs(null).getUserConfigDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp",
-            appDirs.getUserConfigDir("myapp", null, null)
+            AppDirs("myapp").getUserConfigDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\myapp",
-            appDirs.getUserConfigDir("myapp", null, null, true)
+            AppDirs("myapp").getUserConfigDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\1.2.3",
-            appDirs.getUserConfigDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getUserConfigDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\myapp\\1.2.3",
-            appDirs.getUserConfigDir("myapp", "1.2.3", null, true)
+            AppDirs("myapp", null, "1.2.3").getUserConfigDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\syer\\myapp\\1.2.3",
-            appDirs.getUserConfigDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserConfigDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\syer\\myapp\\1.2.3",
-            appDirs.getUserConfigDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getUserConfigDir(true)
         )
     }
 
@@ -130,19 +130,19 @@ abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) :
     open fun testGetUserCacheDir() {
         assertEquals(
             "$home\\AppData\\Local\\Cache",
-            appDirs.getUserCacheDir(null, null, null)
+            AppDirs(null).getUserCacheDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\Cache",
-            appDirs.getUserCacheDir("myapp", null, null)
+            AppDirs("myapp").getUserCacheDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\Cache\\1.2.3",
-            appDirs.getUserCacheDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getUserCacheDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\syer\\myapp\\Cache\\1.2.3",
-            appDirs.getUserCacheDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserCacheDir()
         )
     }
 
@@ -150,19 +150,19 @@ abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) :
     open fun testGetUserLogDir() {
         assertEquals(
             "$home\\AppData\\Local\\Logs",
-            appDirs.getUserLogDir(null, null, null)
+            AppDirs(null).getUserLogDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\Logs",
-            appDirs.getUserLogDir("myapp", null, null)
+            AppDirs("myapp").getUserLogDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\Logs\\1.2.3",
-            appDirs.getUserLogDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getUserLogDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\syer\\myapp\\Logs\\1.2.3",
-            appDirs.getUserLogDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getUserLogDir()
         )
     }
 
@@ -170,35 +170,35 @@ abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) :
     open fun testSiteDataDir() {
         assertEquals(
             "C:\\ProgramData",
-            appDirs.getSiteDataDir(null, null, null)
+            AppDirs(null).getSiteDataDir()
         )
         assertEquals(
             "C:\\ProgramData",
-            appDirs.getSiteDataDir(null, null, null, true)
+            AppDirs(null).getSiteDataDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            appDirs.getSiteDataDir("myapp", null, null)
+            AppDirs("myapp").getSiteDataDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            appDirs.getSiteDataDir("myapp", null, null, true)
+            AppDirs("myapp").getSiteDataDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getSiteDataDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", null, true)
+            AppDirs("myapp", null, "1.2.3").getSiteDataDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getSiteDataDir()
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            appDirs.getSiteDataDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getSiteDataDir(true)
         )
     }
 
@@ -206,35 +206,35 @@ abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) :
     open fun testSiteConfigDir() {
         assertEquals(
             "C:\\ProgramData",
-            appDirs.getSiteConfigDir(null, null, null)
+            AppDirs(null).getSiteConfigDir()
         )
         assertEquals(
             "C:\\ProgramData",
-            appDirs.getSiteConfigDir(null, null, null, true)
+            AppDirs(null).getSiteConfigDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            appDirs.getSiteConfigDir("myapp", null, null)
+            AppDirs("myapp").getSiteConfigDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            appDirs.getSiteConfigDir("myapp", null, null, true)
+            AppDirs("myapp").getSiteConfigDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getSiteConfigDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", null, true)
+            AppDirs("myapp", null, "1.2.3").getSiteConfigDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getSiteConfigDir()
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            appDirs.getSiteConfigDir("myapp", "1.2.3", "syer", true)
+            AppDirs("myapp", "syer", "1.2.3").getSiteConfigDir(true)
         )
     }
 
@@ -242,19 +242,19 @@ abstract class WindowsTest(windowsFolderResolver: () -> WindowsFolderResolver) :
     open fun testgetSharedDir() {
         assertEquals(
             "C:\\ProgramData",
-            appDirs.getSharedDir(null, null, null)
+            AppDirs(null).getSharedDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            appDirs.getSharedDir("myapp", null, null)
+            AppDirs("myapp").getSharedDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            appDirs.getSharedDir("myapp", "1.2.3", null)
+            AppDirs("myapp", null, "1.2.3").getSharedDir()
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            appDirs.getSharedDir("myapp", "1.2.3", "syer")
+            AppDirs("myapp", "syer", "1.2.3").getSharedDir()
         )
     }
 }

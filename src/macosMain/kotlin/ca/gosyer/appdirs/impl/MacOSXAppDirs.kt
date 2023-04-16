@@ -2,72 +2,59 @@ package ca.gosyer.appdirs.impl
 
 import ca.gosyer.appdirs.AppDirs
 
-class MacOSXAppDirs : AppDirs {
+class MacOSXAppDirs(
+    private val appName: String?,
+    private val appAuthor: String? = null,
+    vararg extra: String,
+) : AppDirs {
+    private val extras = extra
+
     override fun getUserDataDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?,
         roaming: Boolean
     ): String {
         return buildPath(
             home(),
             "/Library/Application Support",
-            appName,
-            appVersion
+            getAppName(),
+            *extras
         )
     }
 
     override fun getUserConfigDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?,
         roaming: Boolean
     ): String {
-        return buildPath(home(), "/Library/Preferences", appName, appVersion)
+        return buildPath(home(), "/Library/Preferences", getAppName(), *extras)
     }
 
-    override fun getUserCacheDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?
-    ): String {
-        return buildPath(home(), "/Library/Caches", appName, appVersion)
+    override fun getUserCacheDir(): String {
+        return buildPath(home(), "/Library/Caches", getAppName(), *extras)
     }
 
     override fun getSiteDataDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?,
         multiPath: Boolean
     ): String {
-        return buildPath("/Library/Application Support", appName, appVersion)
+        return buildPath("/Library/Application Support", getAppName(), *extras)
     }
 
     override fun getSiteConfigDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?,
         multiPath: Boolean
     ): String {
-        return buildPath("/Library/Preferences", appName, appVersion)
+        return buildPath("/Library/Preferences", getAppName(), *extras)
     }
 
-    override fun getUserLogDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?
-    ): String {
-        return buildPath(home(), "/Library/Logs", appName, appVersion)
+    override fun getUserLogDir(): String {
+        return buildPath(home(), "/Library/Logs", getAppName(), *extras)
     }
 
-    override fun getSharedDir(
-        appName: String?,
-        appVersion: String?,
-        appAuthor: String?
-    ): String {
+    override fun getSharedDir(): String {
         return buildPath(
-            "/Users/Shared/Library/Application Support", appName,
-            appVersion
+            "/Users/Shared/Library/Application Support",
+            getAppName(),
+            *extras
         )
     }
+
+    private fun getAppName() = if (appAuthor != null && appName != null) {
+        "$appAuthor $appName"
+    } else appName ?: appAuthor
 }

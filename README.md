@@ -30,7 +30,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("ca.gosyer:kotlin-multiplatform-appdirs:1.0.0")
+                implementation("ca.gosyer:kotlin-multiplatform-appdirs:1.1.0")
             }
         }
     }
@@ -55,45 +55,35 @@ Here is a test program and the output on some platforms.
 import ca.gosyer.appdirs.AppDirs
 
 fun main() {
-    val appDirs = AppDirs()
-    println("User data dir: " + appDirs.getUserDataDir("myapp", "1.2.3", "syer"))
-    println("User data dir (roaming): "
-      + appDirs.getUserDataDir("myapp", "1.2.3", "syer", roaming = true))
-    println("User config dir: "
-      + appDirs.getUserConfigDir("myapp", "1.2.3", "syer"))
-    println("User config dir (roaming): "
-      + appDirs.getUserConfigDir("myapp", "1.2.3", "syer", roaming = true))
-    println("User cache dir: "
-      + appDirs.getUserCacheDir("myapp", "1.2.3", "syer"))
-    println("User log dir: "
-      + appDirs.getUserLogDir("myapp", "1.2.3", "syer"))
-    println("Site data dir: "
-      + appDirs.getSiteDataDir("myapp", "1.2.3", "syer"))
-    println("Site data dir (multi path): "
-      + appDirs.getSiteDataDir("myapp", "1.2.3", "syer", roaming = true))
-    println("Site config dir: "
-      + appDirs.getSiteConfigDir("myapp", "1.2.3", "syer"))
-    println("Site config dir (multi path): "
-      + appDirs.getSiteConfigDir("myapp", "1.2.3", "syer", roaming = true))
-    println("Shared dir: "
-      + appDirs.getSharedDir("myapp", "1.2.3", "syer"))
+    val appDirs = AppDirs("myapp", "syer", "1.2.3")
+    println("User data dir: " + appDirs.getUserDataDir())
+    println("User data dir (roaming): " + appDirs.getUserDataDir(roaming = true))
+    println("User config dir: " + appDirs.getUserConfigDir())
+    println("User config dir (roaming): " + appDirs.getUserConfigDir(roaming = true))
+    println("User cache dir: " + appDirs.getUserCacheDir())
+    println("User log dir: " + appDirs.getUserLogDir())
+    println("Site data dir: " + appDirs.getSiteDataDir())
+    println("Site data dir (multi path): " + appDirs.getSiteDataDir(roaming = true))
+    println("Site config dir: " + appDirs.getSiteConfigDir())
+    println("Site config dir (multi path): " + appDirs.getSiteConfigDir(roaming = true))
+    println("Shared dir: " + appDirs.getSharedDir())
 }
 ```
 
 ### Output on Mac OS X (username = ave)
 
 ```
-User data dir: /Users/ave/Library/Application Support/myapp/1.2.3
-User data dir (roaming): /Users/ave/Library/Application Support/myapp/1.2.3
-User config dir: /Users/ave/Library/Preferences/myapp/1.2.3
-User config dir (roaming): /Users/ave/Library/Preferences/myapp/1.2.3
-User cache dir: /Users/ave/Library/Caches/myapp/1.2.3
-User log dir: /Users/ave/Library/Logs/myapp/1.2.3
-Site data dir: /Library/Application Support/myapp/1.2.3
-Site data dir (multi path): /Library/Application Support/myapp/1.2.3
-Site config dir: /Library/Preferences/myapp/1.2.3
-Site config dir (multi path): /Library/Preferences/myapp/1.2.3
-Shared dir: /Users/Shared/Library/Application Support/myapp/1.2.3
+User data dir: /Users/ave/Library/Application Support/syer myapp/1.2.3
+User data dir (roaming): /Users/ave/Library/Application Support/syer myapp/1.2.3
+User config dir: /Users/ave/Library/Preferences/syer myapp/1.2.3
+User config dir (roaming): /Users/ave/Library/Preferences/syer myapp/1.2.3
+User cache dir: /Users/ave/Library/Caches/syer myapp/1.2.3
+User log dir: /Users/ave/Library/Logs/syer myapp/1.2.3
+Site data dir: /Library/Application Support/syer myapp/1.2.3
+Site data dir (multi path): /Library/Application Support/syer myapp/1.2.3
+Site config dir: /Library/Preferences/syer myapp/1.2.3
+Site config dir (multi path): /Library/Preferences/syer myapp/1.2.3
+Shared dir: /Users/Shared/Library/Application Support/syer myapp/1.2.3
 ```
 - _appAuthor_ parameter is not used on Mac OS X.
 - _roaming_ and _multiPath_ parameters have no effect on Mac OS X.

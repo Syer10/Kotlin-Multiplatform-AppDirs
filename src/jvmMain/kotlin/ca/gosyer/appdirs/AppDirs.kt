@@ -6,14 +6,18 @@ import ca.gosyer.appdirs.impl.UnixAppDirs
 import ca.gosyer.appdirs.impl.UnixJvmEnvResolver
 import ca.gosyer.appdirs.impl.WindowsAppDirs
 
-fun AppDirs(): AppDirs {
+actual fun AppDirs(
+    appName: String?,
+    appAuthor: String?,
+    vararg extra: String,
+): AppDirs {
     val os = System.getProperty("os.name").lowercase()
     return if (os.startsWith("mac os x")) {
-        MacOSXAppDirs()
+        MacOSXAppDirs(appName, appAuthor, *extra)
     } else if (os.startsWith("windows")) {
-        WindowsAppDirs(ShellFolderResolver())
+        WindowsAppDirs(appName, appAuthor, *extra, folderResolver = ShellFolderResolver())
     } else {
         // Assume other *nix.
-        UnixAppDirs(UnixJvmEnvResolver())
+        UnixAppDirs(appName, appAuthor, *extra, envResolver = UnixJvmEnvResolver())
     }
 }
