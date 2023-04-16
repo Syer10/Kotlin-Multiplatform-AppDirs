@@ -15,8 +15,8 @@ On Unix/Linux : ```/home/<account>/.local/share/<AppName>```
 With __Kotlin Multiplatform AppDirs__, you can get the path depending on the runtime platform with the following code.
 
 ```kotlin
-val appDirs = AppDirs()
-appDirs.getUserDataDir("<AppName>", null, "<AppAuthor>")
+val appDirs = AppDirs("<AppName>", "<AppAuthor>")
+appDirs.getUserDataDir()
 ```
 __Kotlin Multiplatform AppDirs__ is a fork/kotlin multiplatform rewrite of the Java library [__AppDirs__](https://github.com/harawata/appdirs).
 
