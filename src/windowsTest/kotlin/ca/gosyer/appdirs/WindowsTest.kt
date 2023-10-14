@@ -1,7 +1,5 @@
 package ca.gosyer.appdirs
 
-import ca.gosyer.appdirs.impl.WindowsAppDirs
-import ca.gosyer.appdirs.impl.WindowsFolderResolver
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,6 +1,5 @@
 package ca.gosyer.appdirs
 
-import ca.gosyer.appdirs.impl.MacOSXAppDirs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -8,7 +7,7 @@ abstract class MacosTest : AppDirsTest() {
     @Test
     fun testRealPathMacUserDataDir() {
         assertEquals(
-            home + "/Library/Application Support",
+            "$home/Library/Application Support",
             AppDirs(null).getUserDataDir()
         )
     }
@@ -16,7 +15,7 @@ abstract class MacosTest : AppDirsTest() {
     @Test
     fun testRealPathMacUserConfigDir() {
         assertEquals(
-            home + "/Library/Preferences",
+            "$home/Library/Preferences",
             AppDirs(null).getUserConfigDir()
         )
     }
@@ -24,7 +23,7 @@ abstract class MacosTest : AppDirsTest() {
     @Test
     fun testRealPathMacUserCacheDir() {
         assertEquals(
-            home + "/Library/Caches",
+            "$home/Library/Caches",
             AppDirs(null).getUserCacheDir()
         )
     }
@@ -32,7 +31,7 @@ abstract class MacosTest : AppDirsTest() {
     @Test
     fun testRealPathMacUserLogDir() {
         assertEquals(
-            home + "/Library/Logs",
+            "$home/Library/Logs",
             AppDirs(null).getUserLogDir()
         )
     }
