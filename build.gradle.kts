@@ -15,7 +15,7 @@ repositories {
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "17"
+            kotlinOptions.jvmTarget = "1.8"
         }
 
         testRuns["test"].executionTask.configure {
@@ -27,10 +27,6 @@ kotlin {
     linuxX64()
     linuxArm64()
     mingwX64()
-
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
 
     sourceSets {
         val commonMain by getting
