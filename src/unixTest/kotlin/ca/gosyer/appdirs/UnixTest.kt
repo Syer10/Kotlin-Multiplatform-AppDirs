@@ -5,7 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 abstract class UnixTest : AppDirsTest() {
-    fun AppDirs(
+    private fun AppDirs(
         appName: String?,
         appAuthor: String?,
         vararg extra: String,

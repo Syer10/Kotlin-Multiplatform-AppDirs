@@ -1,7 +1,7 @@
 import java.util.Properties
 
 plugins {
-    kotlin("multiplatform") version "1.8.10"
+    kotlin("multiplatform") version "1.9.10"
     id("com.vanniktech.maven.publish") version "0.25.1"
 }
 
@@ -17,6 +17,7 @@ kotlin {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
         }
+
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
@@ -27,7 +28,6 @@ kotlin {
     linuxArm64()
     mingwX64()
 
-    
     sourceSets {
         val commonMain by getting
         val commonTest by getting {
@@ -35,24 +35,32 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+
+        // Mac OS
         val macosMain by creating {
             dependsOn(commonMain)
         }
         val macosTest by creating {
             dependsOn(commonTest)
         }
+
+        // Unix
         val unixMain by creating {
             dependsOn(commonMain)
         }
         val unixTest by creating {
             dependsOn(commonTest)
         }
+
+        // Windows
         val windowsMain by creating {
             dependsOn(commonMain)
         }
         val windowsTest by creating {
             dependsOn(commonTest)
         }
+
+        // JVM
         val jvmMain by getting {
             dependsOn(macosMain)
             dependsOn(unixMain)
@@ -67,6 +75,7 @@ kotlin {
             dependsOn(windowsTest)
         }
 
+        // Native
         val nativeMain by creating {
             dependsOn(commonMain)
         }
@@ -74,6 +83,7 @@ kotlin {
             dependsOn(commonTest)
         }
 
+        // Mac OS Native
         val macosNativeMain by creating {
             dependsOn(nativeMain)
             dependsOn(macosMain)
@@ -95,6 +105,7 @@ kotlin {
             dependsOn(macosNativeTest)
         }
 
+        // Linux
         val linuxNativeMain by creating {
             dependsOn(nativeMain)
             dependsOn(unixMain)
@@ -116,6 +127,7 @@ kotlin {
             dependsOn(linuxNativeTest)
         }
 
+        // Mingw
         val mingwNativeMain by creating {
             dependsOn(nativeMain)
             dependsOn(windowsMain)
@@ -134,7 +146,7 @@ kotlin {
 }
 
 // Read in the signing.properties file if it is exists
-val signingPropsFile = rootProject.file("release/signing.properties")
+val signingPropsFile: File = rootProject.file("release/signing.properties")
 if (signingPropsFile.exists()) {
     Properties().apply {
         signingPropsFile.inputStream().use {
