@@ -30,7 +30,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("ca.gosyer:kotlin-multiplatform-appdirs:1.1.0")
+                implementation("ca.gosyer:kotlin-multiplatform-appdirs:1.1.1")
             }
         }
     }
