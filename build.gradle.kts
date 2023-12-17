@@ -1,7 +1,7 @@
 import java.util.Properties
 
 plugins {
-    kotlin("multiplatform") version "1.9.10"
+    kotlin("multiplatform") version "1.9.21"
     id("com.vanniktech.maven.publish") version "0.25.1"
 }
 
@@ -27,6 +27,23 @@ kotlin {
     linuxX64()
     linuxArm64()
     mingwX64()
+
+    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
+    applyHierarchyTemplate {
+        common {
+            group("macosNative") {
+                withMacosX64()
+                withMacosArm64()
+            }
+            group("mingwNative") {
+                withMingwX64()
+            }
+            group("linuxNative") {
+                withLinuxX64()
+                withLinuxArm64()
+            }
+        }
+    }
 
     sourceSets {
         val commonMain by getting
@@ -60,6 +77,14 @@ kotlin {
             dependsOn(commonTest)
         }
 
+        // Native
+        val nativeMain by creating {
+            dependsOn(commonMain)
+        }
+        val nativeTest by creating {
+            dependsOn(commonTest)
+        }
+
         // JVM
         val jvmMain by getting {
             dependsOn(macosMain)
@@ -75,77 +100,39 @@ kotlin {
             dependsOn(windowsTest)
         }
 
-        // Native
-        val nativeMain by creating {
-            dependsOn(commonMain)
-        }
-        val nativeTest by creating {
-            dependsOn(commonTest)
-        }
-
         // Mac OS Native
-        val macosNativeMain by creating {
+        getByName("macosNativeMain") {
             dependsOn(nativeMain)
             dependsOn(macosMain)
         }
-        val macosNativeTest by creating {
+        getByName("macosNativeTest") {
             dependsOn(nativeTest)
             dependsOn(macosTest)
         }
-        val macosX64Main by getting {
-            dependsOn(macosNativeMain)
-        }
-        val macosX64Test by getting {
-            dependsOn(macosNativeTest)
-        }
-        val macosArm64Main by getting {
-            dependsOn(macosNativeMain)
-        }
-        val macosArm64Test by getting {
-            dependsOn(macosNativeTest)
-        }
 
         // Linux
-        val linuxNativeMain by creating {
+        getByName("linuxNativeMain") {
             dependsOn(nativeMain)
             dependsOn(unixMain)
         }
-        val linuxNativeTest by creating {
+        getByName("linuxNativeTest") {
             dependsOn(nativeTest)
             dependsOn(unixTest)
         }
-        val linuxX64Main by getting {
-            dependsOn(linuxNativeMain)
-        }
-        val linuxX64Test by getting {
-            dependsOn(linuxNativeTest)
-        }
-        val linuxArm64Main by getting {
-            dependsOn(linuxNativeMain)
-        }
-        val linuxArm64Test by getting {
-            dependsOn(linuxNativeTest)
-        }
 
         // Mingw
-        val mingwNativeMain by creating {
+        getByName("mingwNativeMain") {
             dependsOn(nativeMain)
             dependsOn(windowsMain)
         }
-        val mingwNativeTest by creating {
+        getByName("mingwNativeTest") {
             dependsOn(nativeTest)
             dependsOn(windowsTest)
-        }
-        val mingwX64Main by getting {
-            dependsOn(mingwNativeMain)
-        }
-        val mingwX64Test by getting {
-            dependsOn(mingwNativeTest)
         }
     }
 }
 
-// Read in the signing.properties file if it is exists
+// Read in the signing.properties file if it exists
 val signingPropsFile: File = rootProject.file("release/signing.properties")
 if (signingPropsFile.exists()) {
     Properties().apply {

@@ -21,7 +21,12 @@ internal class ShellFolderResolver : WindowsFolderResolver {
         return try {
             memScoped {
                 val result = alloc<PWSTRVar>()
-                val hResult = SHGetKnownFolderPath(convertFolderIdToGuid(folderId).ptr, 0u, null, result.ptr)
+                val hResult = SHGetKnownFolderPath(
+                    convertFolderIdToGuid(folderId).ptr,
+                    0u,
+                    null,
+                    result.ptr
+                )
                 if (hResult < 0) {
                     throw AppDirsException(
                         "SHGetKnownFolderPath returns an error: $hResult"
@@ -35,7 +40,13 @@ internal class ShellFolderResolver : WindowsFolderResolver {
             try {
                 memScoped {
                     val result = alloc<LPWSTRVar>()
-                    val hResult = SHGetFolderPathW(null, convertFolderIdToCsidl(folderId), null, 0u, result.value)
+                    val hResult = SHGetFolderPathW(
+                        null,
+                        convertFolderIdToCsidl(folderId),
+                        null,
+                        0u,
+                        result.value
+                    )
                     if (hResult < 0) {
                         throw AppDirsException(
                             "SHGetKnownFolderPath returns an error: $hResult"
