@@ -11,9 +11,8 @@ On Mac OS X : ```/Users/<Account>/Library/Application Support/<AppName>```
 On Windows XP : ```C:\Documents and Settings\<Account>\Application Data\Local Settings\<AppAuthor>\<AppName>```  
 On Windows 7 : ```C:\Users\<Account>\AppData\<AppAuthor>\<AppName>```  
 On Unix/Linux : ```/home/<account>/.local/share/<AppName>```
-
 On Android (internal) : ```/data/user/<uid>/<packageName>```
-On Android (external) : ```/storage/emulated/<uid>/Android/data/<packageName>```
+On Android (external) : ```/storage/emulated/<storageId>/Android/data/<packageName>```
 
 With __Kotlin Multiplatform AppDirs__, you can get the path depending on the runtime platform with the following code.
 
