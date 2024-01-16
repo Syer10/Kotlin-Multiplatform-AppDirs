@@ -12,6 +12,9 @@ On Windows XP : ```C:\Documents and Settings\<Account>\Application Data\Local Se
 On Windows 7 : ```C:\Users\<Account>\AppData\<AppAuthor>\<AppName>```  
 On Unix/Linux : ```/home/<account>/.local/share/<AppName>```
 
+On Android (internal) : ```/data/user/<uid>/<packageName>```
+On Android (external) : ```/storage/emulated/<uid>/Android/data/<packageName>```
+
 With __Kotlin Multiplatform AppDirs__, you can get the path depending on the runtime platform with the following code.
 
 ```kotlin
@@ -129,6 +132,23 @@ Shared dir: /srv/myapp/1.2.3
 - Returns XDG_CONFIG_DIRS for site config directory.
 - _appAuthor_ parameter is not used on Unix/Linux.
 - _roaming_ parameter has no effect on Unix/Linux.
+
+### Output on Android (packageName = ca.gosyer.appdirsm, uid = 0)
+```
+User data dir: /data/user/0/ca.gosyer.appdirsm/app_data/1.2.3
+User data dir (roaming): /data/user/0/ca.gosyer.appdirsm/app_data/1.2.3
+User config dir: /data/user/0/ca.gosyer.appdirsm/app_config/1.2.3
+User config dir (roaming): /data/user/0/ca.gosyer.appdirsm/app_config/1.2.3
+User cache dir: /data/user/0/ca.gosyer.appdirsm/cache/1.2.3
+User log dir: /data/user/0/ca.gosyer.appdirsm/app_logs/1.2.3
+Site data dir: /storage/emulated/0/Android/data/ca.gosyer.appdirsm/files/data/1.2.3
+Site data dir (multi path): /storage/emulated/0/Android/data/ca.gosyer.appdirsm/files/data/1.2.3
+Site config dir: /storage/emulated/0/Android/data/ca.gosyer.appdirsm/files/config/1.2.3
+Site config dir (multi path): /storage/emulated/0/Android/data/ca.gosyer.appdirsm/files/config/1.2.3
+Shared dir: /storage/emulated/0/Android/data/ca.gosyer.appdirsm/files/shared/1.2.3
+```
+
+- __AppDirs__ respects [Scoped storage](https://source.android.com/docs/core/storage/scoped) and only accesses the application private directory.
 
 ## Bug report, feature request, question
 
