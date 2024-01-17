@@ -25,7 +25,13 @@ kotlin {
     linuxArm64()
     mingwX64()
 
-    androidTarget()
+    androidTarget {
+        publishLibraryVariants("release")
+
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
+        }
+    }
 
     @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
     applyHierarchyTemplate {
@@ -134,7 +140,6 @@ kotlin {
             dependsOn(commonMain)
         }
         val androidInstrumentedTest by getting {
-            dependsOn(commonTest)
             dependencies {
                 implementation("androidx.test.ext:junit-ktx:1.1.5")
                 implementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -170,11 +175,6 @@ android {
 
     defaultConfig {
         compileSdk = 34
-        minSdk = 24
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        minSdk = 21
     }
 }
