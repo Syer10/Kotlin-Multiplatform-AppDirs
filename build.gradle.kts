@@ -3,14 +3,11 @@ import java.util.Properties
 plugins {
     kotlin("multiplatform") version "1.9.21"
     id("com.vanniktech.maven.publish") version "0.25.1"
+    id("com.android.library") version "8.2.1"
 }
 
 group = "ca.gosyer"
 version = "1.1.0"
-
-repositories {
-    mavenCentral()
-}
 
 kotlin {
     jvm {
@@ -27,6 +24,14 @@ kotlin {
     linuxX64()
     linuxArm64()
     mingwX64()
+
+    androidTarget {
+        publishLibraryVariants("release")
+
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
+        }
+    }
 
     @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
     applyHierarchyTemplate {
@@ -129,6 +134,18 @@ kotlin {
             dependsOn(nativeTest)
             dependsOn(windowsTest)
         }
+
+        // android
+        val androidMain by getting {
+            dependsOn(commonMain)
+        }
+        val androidInstrumentedTest by getting {
+            dependencies {
+                implementation("androidx.test.ext:junit-ktx:1.1.5")
+                implementation("androidx.test.espresso:espresso-core:3.5.1")
+                implementation("androidx.test:runner:1.5.2")
+            }
+        }
     }
 }
 
@@ -148,5 +165,16 @@ if (signingPropsFile.exists()) {
         } else {
             project.ext.set(key, value)
         }
+    }
+}
+
+android {
+    namespace = "ca.gosyer"
+
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    defaultConfig {
+        compileSdk = 34
+        minSdk = 21
     }
 }
