@@ -177,4 +177,9 @@ android {
         compileSdk = 34
         minSdk = 21
     }
+
+    compileOptions {
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+    }
 }
