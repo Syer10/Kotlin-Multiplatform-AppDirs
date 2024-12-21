@@ -141,7 +141,7 @@ kotlin {
         }
         val androidInstrumentedTest by getting {
             dependencies {
-                implementation("androidx.test.ext:junit-ktx:1.1.5")
+                implementation("androidx.test.ext:junit-ktx:1.2.1")
                 implementation("androidx.test.espresso:espresso-core:3.6.1")
                 implementation("androidx.test:runner:1.5.2")
             }
