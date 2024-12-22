@@ -96,7 +96,7 @@ kotlin {
             dependsOn(unixMain)
             dependsOn(windowsMain)
             dependencies {
-                implementation("net.java.dev.jna:jna-platform:5.15.0")
+                implementation("net.java.dev.jna:jna-platform:5.16.0")
             }
         }
         val jvmTest by getting {
