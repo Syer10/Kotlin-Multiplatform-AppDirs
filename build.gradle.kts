@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 plugins {
@@ -12,7 +13,11 @@ version = "1.1.0"
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget = JvmTarget.JVM_1_8
+                }
+            }
         }
 
         testRuns["test"].executionTask.configure {
@@ -29,7 +34,11 @@ kotlin {
         publishLibraryVariants("release")
 
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget = JvmTarget.JVM_1_8
+                }
+            }
         }
     }
 
