@@ -70,7 +70,7 @@ class UnixAppDirs(
     }
 
     override fun getUserLogDir(): String {
-        val dir = envResolver.getOrDefault(XDG_CACHE_HOME) { buildPath(home(), "/.cache") }
+        val dir = envResolver.getOrDefault(XDG_STATE_HOME) { buildPath(home(), "/.local", "/state") }
         return buildPath(dir, appName, "/logs", *extras)
     }
 
@@ -84,5 +84,6 @@ class UnixAppDirs(
         const val XDG_CACHE_HOME = "XDG_CACHE_HOME"
         const val XDG_CONFIG_HOME = "XDG_CONFIG_HOME"
         const val XDG_DATA_HOME = "XDG_DATA_HOME"
+        const val XDG_STATE_HOME = "XDG_STATE_HOME"
     }
 }
