@@ -1,7 +1,7 @@
 import java.util.Properties
 
 plugins {
-    kotlin("multiplatform") version "1.9.25"
+    kotlin("multiplatform") version "2.1.21"
     id("com.vanniktech.maven.publish") version "0.32.0"
     id("com.android.library") version "8.10.1"
 }
