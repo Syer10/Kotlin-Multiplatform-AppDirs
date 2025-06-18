@@ -1,7 +1,8 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 plugins {
-    kotlin("multiplatform") version "1.9.25"
+    kotlin("multiplatform") version "2.1.21"
     id("com.vanniktech.maven.publish") version "0.32.0"
     id("com.android.library") version "8.10.1"
 }
@@ -12,7 +13,11 @@ version = "1.1.0"
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget = JvmTarget.JVM_1_8
+                }
+            }
         }
 
         testRuns["test"].executionTask.configure {
@@ -29,7 +34,11 @@ kotlin {
         publishLibraryVariants("release")
 
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            compileTaskProvider.configure {
+                compilerOptions {
+                    jvmTarget = JvmTarget.JVM_1_8
+                }
+            }
         }
     }
 
