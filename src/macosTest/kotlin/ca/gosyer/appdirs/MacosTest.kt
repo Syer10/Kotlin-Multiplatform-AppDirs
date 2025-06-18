@@ -9,7 +9,7 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Application Support",
-            AppDirs(null).getUserDataDir()
+            AppDirs { appName = null }.getUserDataDir()
         )
     }
 
@@ -18,7 +18,7 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Preferences",
-            AppDirs(null).getUserConfigDir()
+            AppDirs { appName = null }.getUserConfigDir()
         )
     }
 
@@ -27,7 +27,7 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Caches",
-            AppDirs(null).getUserCacheDir()
+            AppDirs { appName = null }.getUserCacheDir()
         )
     }
 
@@ -36,7 +36,7 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Logs",
-            AppDirs(null).getUserLogDir()
+            AppDirs { appName = null }.getUserLogDir()
         )
     }
 
@@ -45,7 +45,7 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "/Library/Application Support",
-            AppDirs(null).getSiteDataDir()
+            AppDirs { appName = null }.getSiteDataDir()
         )
     }
 
@@ -54,7 +54,7 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "/Library/Preferences",
-            AppDirs(null).getSiteConfigDir()
+            AppDirs { appName = null }.getSiteConfigDir()
         )
     }
 
@@ -63,7 +63,7 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "/Users/Shared/Library/Application Support",
-            AppDirs(null).getSharedDir()
+            AppDirs { appName = null }.getSharedDir()
         )
     }
 
@@ -72,35 +72,35 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Application Support",
-            AppDirs(null).getUserDataDir()
+            AppDirs { appName = null }.getUserDataDir()
         )
         assertEquals(
             "$home/Library/Application Support",
-            AppDirs(null).getUserDataDir(true)
+            AppDirs { appName = null }.getUserDataDir(true)
         )
         assertEquals(
             "$home/Library/Application Support/myapp",
-            AppDirs("myapp").getUserDataDir()
+            AppDirs { appName = "myapp" }.getUserDataDir()
         )
         assertEquals(
             "$home/Library/Application Support/myapp",
-            AppDirs("myapp").getUserDataDir(true)
+            AppDirs { appName = "myapp" }.getUserDataDir(true)
         )
         assertEquals(
             "$home/Library/Application Support/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserDataDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserDataDir()
         )
         assertEquals(
             "$home/Library/Application Support/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserDataDir(true)
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserDataDir(true)
         )
         assertEquals(
             "$home/Library/Application Support/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserDataDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserDataDir()
         )
         assertEquals(
             "$home/Library/Application Support/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserDataDir(true)
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserDataDir(true)
         )
     }
 
@@ -109,35 +109,35 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Preferences",
-            AppDirs(null).getUserConfigDir()
+            AppDirs { appName = null }.getUserConfigDir()
         )
         assertEquals(
             "$home/Library/Preferences",
-            AppDirs(null).getUserConfigDir(true)
+            AppDirs { appName = null }.getUserConfigDir(true)
         )
         assertEquals(
             "$home/Library/Preferences/myapp",
-            AppDirs("myapp").getUserConfigDir()
+            AppDirs { appName = "myapp" }.getUserConfigDir()
         )
         assertEquals(
             "$home/Library/Preferences/myapp",
-            AppDirs("myapp").getUserConfigDir(true)
+            AppDirs { appName = "myapp" }.getUserConfigDir(true)
         )
         assertEquals(
             "$home/Library/Preferences/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserConfigDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserConfigDir()
         )
         assertEquals(
             "$home/Library/Preferences/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserConfigDir(true)
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserConfigDir(true)
         )
         assertEquals(
             "$home/Library/Preferences/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserConfigDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserConfigDir()
         )
         assertEquals(
             "$home/Library/Preferences/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserConfigDir(true)
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserConfigDir(true)
         )
     }
 
@@ -146,19 +146,19 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Caches",
-            AppDirs(null).getUserCacheDir()
+            AppDirs { appName = null }.getUserCacheDir()
         )
         assertEquals(
             "$home/Library/Caches/myapp",
-            AppDirs("myapp").getUserCacheDir()
+            AppDirs { appName = "myapp" }.getUserCacheDir()
         )
         assertEquals(
             "$home/Library/Caches/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserCacheDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserCacheDir()
         )
         assertEquals(
             "$home/Library/Caches/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserCacheDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserCacheDir()
         )
     }
 
@@ -167,19 +167,19 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Logs",
-            AppDirs(null).getUserLogDir()
+            AppDirs { appName = null }.getUserLogDir()
         )
         assertEquals(
             "$home/Library/Logs/myapp",
-            AppDirs("myapp").getUserLogDir()
+            AppDirs { appName = "myapp" }.getUserLogDir()
         )
         assertEquals(
             "$home/Library/Logs/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserLogDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserLogDir()
         )
         assertEquals(
             "$home/Library/Logs/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserLogDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserLogDir()
         )
     }
 
@@ -188,35 +188,35 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "/Library/Application Support",
-            AppDirs(null).getSiteDataDir()
+            AppDirs { appName = null }.getSiteDataDir()
         )
         assertEquals(
             "/Library/Application Support",
-            AppDirs(null).getSiteDataDir(true)
+            AppDirs { appName = null }.getSiteDataDir(true)
         )
         assertEquals(
             "/Library/Application Support/myapp",
-            AppDirs("myapp").getSiteDataDir()
+            AppDirs { appName = "myapp" }.getSiteDataDir()
         )
         assertEquals(
             "/Library/Application Support/myapp",
-            AppDirs("myapp").getSiteDataDir(true)
+            AppDirs { appName = "myapp" }.getSiteDataDir(true)
         )
         assertEquals(
             "/Library/Application Support/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSiteDataDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSiteDataDir()
         )
         assertEquals(
             "/Library/Application Support/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSiteDataDir(true)
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSiteDataDir(true)
         )
         assertEquals(
             "/Library/Application Support/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSiteDataDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSiteDataDir()
         )
         assertEquals(
             "/Library/Application Support/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSiteDataDir(true)
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSiteDataDir(true)
         )
     }
 
@@ -224,36 +224,36 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
     open fun testSiteConfigDir() {
         if (!isCurrentOs) return
         assertEquals(
-            "/Library/Preferences",
-            AppDirs(null).getSiteConfigDir()
+            "/Library/Application Support/config",
+            AppDirs { appName = null }.getSiteConfigDir()
         )
         assertEquals(
-            "/Library/Preferences",
-            AppDirs(null).getSiteConfigDir(true)
+            "/Library/Application Support/config",
+            AppDirs { appName = null }.getSiteConfigDir(true)
         )
         assertEquals(
-            "/Library/Preferences/myapp",
-            AppDirs("myapp").getSiteConfigDir()
+            "/Library/Application Support/config/myapp",
+            AppDirs { appName = "myapp" }.getSiteConfigDir()
         )
         assertEquals(
-            "/Library/Preferences/myapp",
-            AppDirs("myapp").getSiteConfigDir(true)
+            "/Library/Application Support/config/myapp",
+            AppDirs { appName = "myapp" }.getSiteConfigDir(true)
         )
         assertEquals(
-            "/Library/Preferences/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSiteConfigDir()
+            "/Library/Application Support/config/myapp/1.2.3",
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSiteConfigDir()
         )
         assertEquals(
-            "/Library/Preferences/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSiteConfigDir(true)
+            "/Library/Application Support/config/myapp/1.2.3",
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSiteConfigDir(true)
+        )
+        assertEquals(
+            "/Library/Application Support/config/syer myapp/1.2.3",
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSiteConfigDir()
         )
         assertEquals(
             "/Library/Preferences/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSiteConfigDir()
-        )
-        assertEquals(
-            "/Library/Preferences/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSiteConfigDir(true)
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSiteConfigDir(true)
         )
     }
 
@@ -262,19 +262,19 @@ abstract class MacosTest : AppDirsTest(OS.MACOS) {
         if (!isCurrentOs) return
         assertEquals(
             "/Users/Shared/Library/Application Support",
-            AppDirs(null).getSharedDir()
+            AppDirs { appName = null }.getSharedDir()
         )
         assertEquals(
             "/Users/Shared/Library/Application Support/myapp",
-            AppDirs("myapp").getSharedDir()
+            AppDirs { appName = "myapp" }.getSharedDir()
         )
         assertEquals(
             "/Users/Shared/Library/Application Support/myapp/1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSharedDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSharedDir()
         )
         assertEquals(
             "/Users/Shared/Library/Application Support/syer myapp/1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSharedDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSharedDir()
         )
     }
 }

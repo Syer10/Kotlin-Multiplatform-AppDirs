@@ -1,14 +1,15 @@
 package ca.gosyer.appdirs.impl
 
 import ca.gosyer.appdirs.AppDirs
+import ca.gosyer.appdirs.AppDirsConfig
 
 class WindowsAppDirs(
-    private val appName: String?,
-    private val appAuthor: String? = null,
-    vararg extra: String,
+    appDirsConfig: AppDirsConfig,
     private val folderResolver: WindowsFolderResolver
 ) : AppDirs {
-    private val extras = extra
+    private val appAuthor = appDirsConfig.appAuthor
+    private val appName = appDirsConfig.appName
+    private val extras = appDirsConfig.extras
 
     enum class FolderId {
         APPDATA, LOCAL_APPDATA, COMMON_APPDATA

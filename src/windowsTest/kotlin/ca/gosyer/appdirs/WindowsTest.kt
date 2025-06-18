@@ -10,7 +10,7 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local",
-            AppDirs(null).getUserDataDir()
+            AppDirs { appName = null }.getUserDataDir()
         )
     }
 
@@ -19,7 +19,7 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local",
-            AppDirs(null).getUserConfigDir()
+            AppDirs { appName = null }.getUserConfigDir()
         )
     }
 
@@ -28,7 +28,7 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local\\Cache",
-            AppDirs(null).getUserCacheDir()
+            AppDirs { appName = null }.getUserCacheDir()
         )
     }
 
@@ -37,26 +37,26 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local\\Logs",
-            AppDirs(null).getUserLogDir()
+            AppDirs { appName = null }.getUserLogDir()
         )
     }
 
     @Test
     fun testRealPathWinSiteDataDir() {
         if (!isCurrentOs) return
-        assertEquals("C:\\ProgramData", AppDirs(null).getSiteDataDir())
+        assertEquals("C:\\ProgramData", AppDirs { appName = null }.getSiteDataDir())
     }
 
     @Test
     fun testRealPathWinSiteConfigDir() {
         if (!isCurrentOs) return
-        assertEquals("C:\\ProgramData", AppDirs(null).getSiteConfigDir())
+        assertEquals("C:\\ProgramData", AppDirs { appName = null }.getSiteConfigDir())
     }
 
     @Test
     fun testRealPathWinSharedDir() {
         if (!isCurrentOs) return
-        assertEquals("C:\\ProgramData", AppDirs(null).getSharedDir())
+        assertEquals("C:\\ProgramData", AppDirs { appName = null }.getSharedDir())
     }
 
     @Test
@@ -64,35 +64,35 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local",
-            AppDirs(null).getUserDataDir()
+            AppDirs { appName = null }.getUserDataDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming",
-            AppDirs(null).getUserDataDir(true)
+            AppDirs { appName = null }.getUserDataDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp",
-            AppDirs("myapp").getUserDataDir()
+            AppDirs { appName = "myapp" }.getUserDataDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\myapp",
-            AppDirs("myapp").getUserDataDir(true)
+            AppDirs { appName = "myapp" }.getUserDataDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserDataDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserDataDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\myapp\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserDataDir(true)
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserDataDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\syer\\myapp\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserDataDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserDataDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\syer\\myapp\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserDataDir(true)
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserDataDir(true)
         )
     }
 
@@ -101,35 +101,35 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local",
-            AppDirs(null).getUserConfigDir()
+            AppDirs { appName = null }.getUserConfigDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming",
-            AppDirs(null).getUserConfigDir(true)
+            AppDirs { appName = null }.getUserConfigDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp",
-            AppDirs("myapp").getUserConfigDir()
+            AppDirs { appName = "myapp" }.getUserConfigDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\myapp",
-            AppDirs("myapp").getUserConfigDir(true)
+            AppDirs { appName = "myapp" }.getUserConfigDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserConfigDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserConfigDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\myapp\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserConfigDir(true)
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserConfigDir(true)
         )
         assertEquals(
             "$home\\AppData\\Local\\syer\\myapp\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserConfigDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserConfigDir()
         )
         assertEquals(
             "$home\\AppData\\Roaming\\syer\\myapp\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserConfigDir(true)
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserConfigDir(true)
         )
     }
 
@@ -138,19 +138,19 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local\\Cache",
-            AppDirs(null).getUserCacheDir()
+            AppDirs { appName = null }.getUserCacheDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\Cache",
-            AppDirs("myapp").getUserCacheDir()
+            AppDirs { appName = "myapp" }.getUserCacheDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\Cache\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserCacheDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserCacheDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\syer\\myapp\\Cache\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserCacheDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserCacheDir()
         )
     }
 
@@ -159,19 +159,19 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local\\Logs",
-            AppDirs(null).getUserLogDir()
+            AppDirs { appName = null }.getUserLogDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\Logs",
-            AppDirs("myapp").getUserLogDir()
+            AppDirs { appName = "myapp" }.getUserLogDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\myapp\\Logs\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getUserLogDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getUserLogDir()
         )
         assertEquals(
             "$home\\AppData\\Local\\syer\\myapp\\Logs\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getUserLogDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getUserLogDir()
         )
     }
 
@@ -180,35 +180,35 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "C:\\ProgramData",
-            AppDirs(null).getSiteDataDir()
+            AppDirs { appName = null }.getSiteDataDir()
         )
         assertEquals(
             "C:\\ProgramData",
-            AppDirs(null).getSiteDataDir(true)
+            AppDirs { appName = null }.getSiteDataDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            AppDirs("myapp").getSiteDataDir()
+            AppDirs { appName = "myapp" }.getSiteDataDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            AppDirs("myapp").getSiteDataDir(true)
+            AppDirs { appName = "myapp" }.getSiteDataDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSiteDataDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSiteDataDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSiteDataDir(true)
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSiteDataDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSiteDataDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSiteDataDir()
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSiteDataDir(true)
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSiteDataDir(true)
         )
     }
 
@@ -217,35 +217,35 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "C:\\ProgramData",
-            AppDirs(null).getSiteConfigDir()
+            AppDirs { appName = null }.getSiteConfigDir()
         )
         assertEquals(
             "C:\\ProgramData",
-            AppDirs(null).getSiteConfigDir(true)
+            AppDirs { appName = null }.getSiteConfigDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            AppDirs("myapp").getSiteConfigDir()
+            AppDirs { appName = "myapp" }.getSiteConfigDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            AppDirs("myapp").getSiteConfigDir(true)
+            AppDirs { appName = "myapp" }.getSiteConfigDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSiteConfigDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSiteConfigDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSiteConfigDir(true)
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSiteConfigDir(true)
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSiteConfigDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSiteConfigDir()
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSiteConfigDir(true)
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSiteConfigDir(true)
         )
     }
 
@@ -254,19 +254,19 @@ abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
         if (!isCurrentOs) return
         assertEquals(
             "C:\\ProgramData",
-            AppDirs(null).getSharedDir()
+            AppDirs { appName = null }.getSharedDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp",
-            AppDirs("myapp").getSharedDir()
+            AppDirs { appName = "myapp" }.getSharedDir()
         )
         assertEquals(
             "C:\\ProgramData\\myapp\\1.2.3",
-            AppDirs("myapp", null, "1.2.3").getSharedDir()
+            AppDirs { appName = "myapp"; appAuthor = null; extras("1.2.3"); }.getSharedDir()
         )
         assertEquals(
             "C:\\ProgramData\\syer\\myapp\\1.2.3",
-            AppDirs("myapp", "syer", "1.2.3").getSharedDir()
+            AppDirs { appName = "myapp"; appAuthor = "syer"; extras("1.2.3"); }.getSharedDir()
         )
     }
 }

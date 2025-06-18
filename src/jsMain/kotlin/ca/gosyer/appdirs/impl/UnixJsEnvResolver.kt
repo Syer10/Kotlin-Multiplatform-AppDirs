@@ -2,6 +2,6 @@ package ca.gosyer.appdirs.impl
 
 import node.process.process
 
-class UnixJvmEnvResolver : UnixEnvResolver {
+class UnixJsEnvResolver : UnixEnvResolver {
     override fun get(name: String): String? = process.env[name].unsafeCast<String?>()
 }

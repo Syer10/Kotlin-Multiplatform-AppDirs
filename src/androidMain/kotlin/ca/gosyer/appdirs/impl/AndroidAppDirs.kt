@@ -2,13 +2,14 @@ package ca.gosyer.appdirs.impl
 
 import android.content.Context
 import ca.gosyer.appdirs.AppDirs
+import ca.gosyer.appdirs.AppDirsConfig
 import java.io.File
 
 class AndroidAppDirs(
     private val context: Context,
-    vararg extra: String,
+    appDirsConfig: AppDirsConfig,
 ): AppDirs {
-    private val extras = extra.joinToString(pathSeparator())
+    private val extras = appDirsConfig.extras.joinToString(pathSeparator())
 
     override fun getUserDataDir(roaming: Boolean): String {
         return getUserDir("data")

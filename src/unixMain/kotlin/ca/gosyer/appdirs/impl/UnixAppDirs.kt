@@ -1,14 +1,14 @@
 package ca.gosyer.appdirs.impl
 
 import ca.gosyer.appdirs.AppDirs
+import ca.gosyer.appdirs.AppDirsConfig
 
 class UnixAppDirs(
-    private val appName: String?,
-    private val appAuthor: String? = null,
-    vararg extra: String,
+    private val appDirsConfig: AppDirsConfig,
     private val envResolver: UnixEnvResolver
 ) : AppDirs {
-    private val extras = extra
+    private val appName = appDirsConfig.appName
+    private val extras = appDirsConfig.extras
 
     override fun getUserDataDir(
         roaming: Boolean
@@ -70,7 +70,11 @@ class UnixAppDirs(
     }
 
     override fun getUserLogDir(): String {
-        val dir = envResolver.getOrDefault(XDG_STATE_HOME) { buildPath(home(), "/.local", "/state") }
+        val dir = if (appDirsConfig.linux.useLegacyLogsDir) {
+            envResolver.getOrDefault(XDG_CACHE_HOME) { buildPath(home(), "/.cache") }
+        } else {
+            envResolver.getOrDefault(XDG_STATE_HOME) { buildPath(home(), "/.local", "/state") }
+        }
         return buildPath(dir, appName, "/logs", *extras)
     }
 

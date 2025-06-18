@@ -32,7 +32,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("ca.gosyer:kotlin-multiplatform-appdirs:1.1.1")
+                implementation("ca.gosyer:kotlin-multiplatform-appdirs:2.0.0")
             }
         }
     }
@@ -57,7 +57,11 @@ Here is a test program and the output on some platforms.
 import ca.gosyer.appdirs.AppDirs
 
 fun main() {
-    val appDirs = AppDirs("myapp", "syer", "1.2.3")
+    val appDirs = AppDirs {
+        appName = "myapp"
+        appAuthor = "syer"
+        extras("1.2.3")
+    }
     println("User data dir: " + appDirs.getUserDataDir())
     println("User data dir (roaming): " + appDirs.getUserDataDir(roaming = true))
     println("User config dir: " + appDirs.getUserConfigDir())
@@ -77,8 +81,8 @@ fun main() {
 ```
 User data dir: /Users/ave/Library/Application Support/syer myapp/1.2.3
 User data dir (roaming): /Users/ave/Library/Application Support/syer myapp/1.2.3
-User config dir: /Users/ave/Library/Preferences/syer myapp/1.2.3
-User config dir (roaming): /Users/ave/Library/Preferences/syer myapp/1.2.3
+User config dir: /Users/ave/Library/Application Support/config/syer myapp/1.2.3
+User config dir (roaming): /Users/ave/Library/Application Support/config/syer myapp/1.2.3
 User cache dir: /Users/ave/Library/Caches/syer myapp/1.2.3
 User log dir: /Users/ave/Library/Logs/syer myapp/1.2.3
 Site data dir: /Library/Application Support/syer myapp/1.2.3
@@ -115,7 +119,7 @@ User data dir (roaming): /home/ave/.local/share/myapp/1.2.3
 User config dir: /home/ave/.config/myapp/1.2.3
 User config dir (roaming): /home/ave/.config/myapp/1.2.3
 User cache dir: /home/ave/.cache/myapp/1.2.3
-User log dir: /home/ave/.cache/myapp/logs/1.2.3
+User log dir: /home/ave/.local/state/myapp/logs/1.2.3
 Site data dir: /usr/local/share/myapp/1.2.3
 Site data dir (multi path): /usr/local/share/myapp/1.2.3:/usr/share/myapp/1.2.3
 Site config dir: /etc/xdg/myapp/1.2.3
@@ -129,6 +133,7 @@ Shared dir: /srv/myapp/1.2.3
 - Returns XDG_CACHE_HOME for user cache directory.
 - Returns XDG_DATA_DIRS for site data directory.
 - Returns XDG_CONFIG_DIRS for site config directory.
+- Returns XDG_STATE_HOME for logs directory.
 - _appAuthor_ parameter is not used on Unix/Linux.
 - _roaming_ parameter has no effect on Unix/Linux.
 
