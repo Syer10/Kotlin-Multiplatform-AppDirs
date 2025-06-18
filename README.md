@@ -17,7 +17,10 @@ On Android (external) : ```/storage/emulated/<storageId>/Android/data/<packageNa
 With __Kotlin Multiplatform AppDirs__, you can get the path depending on the runtime platform with the following code.
 
 ```kotlin
-val appDirs = AppDirs("<AppName>", "<AppAuthor>")
+val appDirs = AppDirs {
+    appName = "<AppName>"
+    appAuthor = "<AppAuthor>"
+}
 appDirs.getUserDataDir()
 ```
 __Kotlin Multiplatform AppDirs__ is a fork/kotlin multiplatform rewrite of the Java library [__AppDirs__](https://github.com/harawata/appdirs).
