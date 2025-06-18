@@ -3,10 +3,11 @@ package ca.gosyer.appdirs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-abstract class WindowsTest : AppDirsTest() {
+abstract class WindowsTest : AppDirsTest(OS.WINDOWS) {
 
     @Test
     fun testRealPathWinUserDataDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local",
             AppDirs(null).getUserDataDir()
@@ -15,6 +16,7 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     fun testRealPathWinUserConfigDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local",
             AppDirs(null).getUserConfigDir()
@@ -23,6 +25,7 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     fun testRealPathWinUserCacheDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local\\Cache",
             AppDirs(null).getUserCacheDir()
@@ -31,6 +34,7 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     fun testRealPathWinUserLogDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local\\Logs",
             AppDirs(null).getUserLogDir()
@@ -39,21 +43,25 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     fun testRealPathWinSiteDataDir() {
+        if (!isCurrentOs) return
         assertEquals("C:\\ProgramData", AppDirs(null).getSiteDataDir())
     }
 
     @Test
     fun testRealPathWinSiteConfigDir() {
+        if (!isCurrentOs) return
         assertEquals("C:\\ProgramData", AppDirs(null).getSiteConfigDir())
     }
 
     @Test
     fun testRealPathWinSharedDir() {
+        if (!isCurrentOs) return
         assertEquals("C:\\ProgramData", AppDirs(null).getSharedDir())
     }
 
     @Test
     open fun testGetUserDataDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local",
             AppDirs(null).getUserDataDir()
@@ -90,6 +98,7 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     open fun testGetUserConfigDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local",
             AppDirs(null).getUserConfigDir()
@@ -126,6 +135,7 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     open fun testGetUserCacheDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local\\Cache",
             AppDirs(null).getUserCacheDir()
@@ -146,6 +156,7 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     open fun testGetUserLogDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home\\AppData\\Local\\Logs",
             AppDirs(null).getUserLogDir()
@@ -166,6 +177,7 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     open fun testSiteDataDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "C:\\ProgramData",
             AppDirs(null).getSiteDataDir()
@@ -202,6 +214,7 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     open fun testSiteConfigDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "C:\\ProgramData",
             AppDirs(null).getSiteConfigDir()
@@ -238,6 +251,7 @@ abstract class WindowsTest : AppDirsTest() {
 
     @Test
     open fun testgetSharedDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "C:\\ProgramData",
             AppDirs(null).getSharedDir()

@@ -3,9 +3,10 @@ package ca.gosyer.appdirs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-abstract class MacosTest : AppDirsTest() {
+abstract class MacosTest : AppDirsTest(OS.MACOS) {
     @Test
     fun testRealPathMacUserDataDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Application Support",
             AppDirs(null).getUserDataDir()
@@ -14,6 +15,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     fun testRealPathMacUserConfigDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Preferences",
             AppDirs(null).getUserConfigDir()
@@ -22,6 +24,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     fun testRealPathMacUserCacheDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Caches",
             AppDirs(null).getUserCacheDir()
@@ -30,6 +33,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     fun testRealPathMacUserLogDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Logs",
             AppDirs(null).getUserLogDir()
@@ -38,6 +42,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     fun testRealPathMacSiteDataDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "/Library/Application Support",
             AppDirs(null).getSiteDataDir()
@@ -46,6 +51,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     fun testRealPathMacSiteConfigDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "/Library/Preferences",
             AppDirs(null).getSiteConfigDir()
@@ -54,6 +60,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     fun testRealPathMacSharedDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "/Users/Shared/Library/Application Support",
             AppDirs(null).getSharedDir()
@@ -62,6 +69,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     open fun testGetUserDataDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Application Support",
             AppDirs(null).getUserDataDir()
@@ -98,6 +106,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     open fun testGetUserConfigDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Preferences",
             AppDirs(null).getUserConfigDir()
@@ -134,6 +143,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     open fun testGetUserCacheDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Caches",
             AppDirs(null).getUserCacheDir()
@@ -154,6 +164,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     open fun testGetUserLogDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/Library/Logs",
             AppDirs(null).getUserLogDir()
@@ -174,6 +185,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     open fun testSiteDataDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "/Library/Application Support",
             AppDirs(null).getSiteDataDir()
@@ -210,6 +222,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     open fun testSiteConfigDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "/Library/Preferences",
             AppDirs(null).getSiteConfigDir()
@@ -246,6 +259,7 @@ abstract class MacosTest : AppDirsTest() {
 
     @Test
     open fun testgetSharedDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "/Users/Shared/Library/Application Support",
             AppDirs(null).getSharedDir()

@@ -4,7 +4,7 @@ import ca.gosyer.appdirs.impl.UnixAppDirs
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-abstract class UnixTest : AppDirsTest() {
+abstract class UnixTest : AppDirsTest(OS.LINUX) {
     private fun AppDirs(
         appName: String?,
         appAuthor: String?,
@@ -15,6 +15,7 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testRealPathLinuxUserDataDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/.local/share",
             AppDirs(null).getUserDataDir()
@@ -23,16 +24,19 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testRealPathLinuxUserConfigDir() {
+        if (!isCurrentOs) return
         assertEquals("$home/.config", AppDirs(null).getUserConfigDir())
     }
 
     @Test
     fun testRealPathLinuxUserCacheDir() {
+        if (!isCurrentOs) return
         assertEquals("$home/.cache", AppDirs(null).getUserCacheDir())
     }
 
     @Test
     fun testRealPathLinuxUserLogDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/.cache/logs",
             AppDirs(null).getUserLogDir()
@@ -41,21 +45,25 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testRealPathLinuxSiteDataDir() {
+        if (!isCurrentOs) return
         assertEquals("/usr/local/share", AppDirs(null).getSiteDataDir())
     }
 
     @Test
     fun testRealPathLinuxSiteConfigDir() {
+        if (!isCurrentOs) return
         assertEquals("/etc/xdg", AppDirs(null).getSiteConfigDir())
     }
 
     @Test
     fun testRealPathLinuxSharedDir() {
+        if (!isCurrentOs) return
         assertEquals("/srv", AppDirs(null).getSharedDir())
     }
 
     @Test
     fun testGetUserDataDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/.local/share",
             AppDirs(null).getUserDataDir()
@@ -92,6 +100,7 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testGetUserConfigDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/.config",
             AppDirs(null).getUserConfigDir()
@@ -128,6 +137,7 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testGetUserCacheDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/.cache",
             AppDirs(null).getUserCacheDir()
@@ -148,6 +158,7 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testGetUserLogDir() {
+        if (!isCurrentOs) return
         assertEquals(
             "$home/.cache/logs",
             AppDirs(null).getUserLogDir()
@@ -168,6 +179,7 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testSiteDataDir() {
+        if (!isCurrentOs) return
         assertEquals("/usr/local/share", AppDirs(null).getSiteDataDir())
         assertEquals(
             "/usr/local/share:/usr/share",
@@ -201,6 +213,7 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testSiteConfigDir() {
+        if (!isCurrentOs) return
         assertEquals("/etc/xdg", AppDirs(null).getSiteConfigDir())
         assertEquals("/etc/xdg", AppDirs(null).getSiteConfigDir(true))
         assertEquals(
@@ -231,6 +244,7 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testEnvironmentVariables() {
+        if (!isCurrentOs) return
         fun AppDirs(
             appName: String?,
             appAuthor: String?,
@@ -283,6 +297,7 @@ abstract class UnixTest : AppDirsTest() {
 
     @Test
     fun testgetSharedDir() {
+        if (!isCurrentOs) return
         assertEquals("/srv", AppDirs(null).getSharedDir())
         assertEquals("/srv/myapp", AppDirs("myapp").getSharedDir())
         assertEquals(
