@@ -1,4 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.ir.KotlinJsIrLink
 import java.util.Properties
 
 plugins {
@@ -29,6 +31,14 @@ kotlin {
     linuxX64()
     linuxArm64()
     mingwX64()
+    js {
+        useCommonJs()
+        nodejs {
+            testTask {
+                useMocha()
+            }
+        }
+    }
 
     androidTarget {
         publishLibraryVariants("release")
@@ -114,6 +124,22 @@ kotlin {
             dependsOn(windowsTest)
         }
 
+        // JS
+        val jsMain by getting {
+            dependsOn(macosMain)
+            dependsOn(unixMain)
+            dependsOn(windowsMain)
+            dependencies {
+                implementation(kotlinWrappers.js)
+                implementation(kotlinWrappers.node)
+            }
+        }
+        val jsTest by getting {
+            dependsOn(macosTest)
+            dependsOn(unixTest)
+            dependsOn(windowsTest)
+        }
+
         // Mac OS Native
         getByName("macosNativeMain") {
             dependsOn(nativeMain)
@@ -191,4 +217,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
         sourceCompatibility = JavaVersion.VERSION_1_8
     }
+}
+
+tasks.withType<KotlinJsIrLink> {
+    compilerOptions.moduleKind.set(JsModuleKind.MODULE_COMMONJS)
 }
