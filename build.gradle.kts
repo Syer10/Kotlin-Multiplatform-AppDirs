@@ -51,6 +51,9 @@ kotlin {
             }
         }
     }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
     applyHierarchyTemplate {
@@ -65,6 +68,11 @@ kotlin {
             group("linuxNative") {
                 withLinuxX64()
                 withLinuxArm64()
+            }
+            group("ios") {
+                withIosX64()
+                withIosArm64()
+                withIosSimulatorArm64()
             }
         }
     }
@@ -180,6 +188,14 @@ kotlin {
                 implementation("androidx.test.espresso:espresso-core:3.6.1")
                 implementation("androidx.test:runner:1.6.2")
             }
+        }
+
+        // ios
+        val iosMain by getting {
+            dependsOn(commonMain)
+        }
+        val iosTest by getting {
+            dependsOn(commonTest)
         }
     }
 }
