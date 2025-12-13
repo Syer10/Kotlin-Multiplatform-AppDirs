@@ -13,6 +13,7 @@ On Windows 7 : ```C:\Users\<Account>\AppData\<AppAuthor>\<AppName>```
 On Unix/Linux : ```/home/<account>/.local/share/<AppName>```  
 On Android (internal) : ```/data/user/<uid>/<packageName>```  
 On Android (external) : ```/storage/emulated/<storageId>/Android/data/<packageName>```  
+On iOS : ```/var/mobile/Containers/Data/Application/<UUID>/Documents```  
 
 With __Kotlin Multiplatform AppDirs__, you can get the path depending on the runtime platform with the following code.
 
@@ -156,6 +157,27 @@ Shared dir: /storage/emulated/0/Android/data/ca.gosyer.appdirsm/files/shared/1.2
 ```
 
 - __AppDirs__ respects [Scoped storage](https://source.android.com/docs/core/storage/scoped) and only accesses the application private directory.
+
+### Output on iOS (App Container UUID = 12345678-1234-1234-1234-123456789ABC)
+```
+User data dir: /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Documents/app_data/1.2.3
+User data dir (roaming): /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Documents/app_data/1.2.3
+User config dir: /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Library/Application Support/app_config/1.2.3
+User config dir (roaming): /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Library/Application Support/app_config/1.2.3
+User cache dir: /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Library/Caches/1.2.3
+User log dir: /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Library/Caches/app_logs/1.2.3
+Site data dir: /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Documents/data/1.2.3
+Site data dir (multi path): /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Documents/data/1.2.3
+Site config dir: /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Documents/config/1.2.3
+Site config dir (multi path): /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Documents/config/1.2.3
+Shared dir: /var/mobile/Containers/Data/Application/12345678-1234-1234-1234-123456789ABC/Documents/1.2.3
+```
+
+- __AppDirs__ uses iOS standard directories via `NSSearchPathForDirectoriesInDomains`.
+- Returns NSDocumentDirectory for user data and site directories.
+- Returns NSCachesDirectory for cache and log directories.
+- Returns NSApplicationSupportDirectory for config directory.
+- _appName_, _appAuthor_, _roaming_ and _multiPath_ parameters have no effect on iOS.
 
 ## Bug report, feature request, question
 

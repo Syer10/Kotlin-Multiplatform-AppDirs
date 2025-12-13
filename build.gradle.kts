@@ -52,6 +52,10 @@ kotlin {
         }
     }
 
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
     @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
     applyHierarchyTemplate {
         common {
@@ -65,6 +69,11 @@ kotlin {
             group("linuxNative") {
                 withLinuxX64()
                 withLinuxArm64()
+            }
+            group("ios") {
+                withIosX64()
+                withIosArm64()
+                withIosSimulatorArm64()
             }
         }
     }
@@ -181,6 +190,14 @@ kotlin {
                 implementation("androidx.test:runner:1.6.2")
             }
         }
+
+        // ios
+        val iosMain by getting {
+            dependsOn(commonMain)
+        }
+        val iosTest by getting {
+            dependsOn(commonTest)
+        }
     }
 }
 
@@ -191,7 +208,7 @@ if (signingPropsFile.exists()) {
         signingPropsFile.inputStream().use {
             load(it)
         }
-    }.forEach { key1, value1 ->
+    }.forEach { (key1, value1) ->
         val key = key1.toString()
         val value = value1.toString()
         if (key == "signing.secretKeyRingFile") {
